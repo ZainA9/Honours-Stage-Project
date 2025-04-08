@@ -6,15 +6,23 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// 🔹 CORS: Allow React frontend access
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:5173")
+                  .AllowAnyHeader()
+                  .AllowAnyMethod()
+                  .AllowCredentials(); // Only needed if you're using cookies or authorization headers
+        });
+});
 
-//reads JWT settings from appsettings.json and concerts secret into bytes
-//var jwtSettings = builder.Configuration.GetSection("JwtSettings");
-//var key = Encoding.UTF8.GetBytes(jwtSettings["Secret"]);
-
+// JWT settings
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 var secret = jwtSettings["Secret"];
-Console.WriteLine($"[DEBUG] JWT Secret from appsettings.json: {secret}"); // 🔹 Print secret to check
+Console.WriteLine($"[DEBUG] JWT Secret from appsettings.json: {secret}");
 
 if (string.IsNullOrEmpty(secret))
 {
@@ -35,7 +43,7 @@ builder.Services.AddAuthentication(options =>
     options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(key), // 🔹 Uses the exact same key
+        IssuerSigningKey = new SymmetricSecurityKey(key),
         ValidateIssuer = true,
         ValidIssuer = jwtSettings["Issuer"],
         ValidateAudience = true,
@@ -45,13 +53,11 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-
-// 🔹 Configure Swagger to support JWT Bearer Tokens
+// Swagger with JWT support
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "EventFinderAPI", Version = "v1" });
 
-    // 🔹 Enable JWT Authentication in Swagger
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",
@@ -83,13 +89,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSingleton<MongoDBService>();
 builder.Services.AddSingleton<SmtpEmailService>();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// 🔹 Enable CORS
+app.UseCors("AllowFrontend");
+
+// Swagger and middleware
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -99,6 +105,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
-app.MapControllers();
 
+app.MapControllers();
 app.Run();

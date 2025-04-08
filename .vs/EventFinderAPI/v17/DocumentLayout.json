@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\zain2\\source\\repos\\Honours-Stage-Project\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{697F6E94-3CAC-4CA6-851A-1971500A39A6}|EventFinderAPI\\EventFinderAPI.csproj|c:\\users\\zain2\\source\\repos\\honours-stage-project\\eventfinderapi\\data\\mongodbservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{697F6E94-3CAC-4CA6-851A-1971500A39A6}|EventFinderAPI\\EventFinderAPI.csproj|solutionrelative:eventfinderapi\\data\\mongodbservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{697F6E94-3CAC-4CA6-851A-1971500A39A6}|EventFinderAPI\\EventFinderAPI.csproj|c:\\users\\zain2\\source\\repos\\honours-stage-project\\eventfinderapi\\controllers\\eventcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{697F6E94-3CAC-4CA6-851A-1971500A39A6}|EventFinderAPI\\EventFinderAPI.csproj|solutionrelative:eventfinderapi\\controllers\\eventcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{697F6E94-3CAC-4CA6-851A-1971500A39A6}|EventFinderAPI\\EventFinderAPI.csproj|c:\\users\\zain2\\source\\repos\\honours-stage-project\\eventfinderapi\\data\\mongodbservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{697F6E94-3CAC-4CA6-851A-1971500A39A6}|EventFinderAPI\\EventFinderAPI.csproj|solutionrelative:eventfinderapi\\data\\mongodbservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -26,7 +26,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "MongoDBService.cs",
               "DocumentMoniker": "C:\\Users\\zain2\\source\\repos\\Honours-Stage-Project\\EventFinderAPI\\Data\\MongoDBService.cs",
               "RelativeDocumentMoniker": "EventFinderAPI\\Data\\MongoDBService.cs",
@@ -39,13 +39,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "EventController.cs",
               "DocumentMoniker": "C:\\Users\\zain2\\source\\repos\\Honours-Stage-Project\\EventFinderAPI\\Controllers\\EventController.cs",
               "RelativeDocumentMoniker": "EventFinderAPI\\Controllers\\EventController.cs",
               "ToolTip": "C:\\Users\\zain2\\source\\repos\\Honours-Stage-Project\\EventFinderAPI\\Controllers\\EventController.cs",
               "RelativeToolTip": "EventFinderAPI\\Controllers\\EventController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAAAA4AAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-02T18:20:48.834Z",
               "EditorCaption": ""
