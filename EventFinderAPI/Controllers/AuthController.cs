@@ -53,11 +53,18 @@ namespace EventFinderAPI.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
         {
+            Console.WriteLine($"[DEBUG] Login Attempt");
+            Console.WriteLine($"[DEBUG] Email: {loginRequest.Email}");
+            Console.WriteLine($"[DEBUG] Password: {loginRequest.Password}");
+
             var existingUser = await _usersCollection.Find(u => u.Email == loginRequest.Email).FirstOrDefaultAsync();
             if (existingUser == null || !BCrypt.Net.BCrypt.Verify(loginRequest.Password, existingUser.PasswordHash))
             {
+                Console.WriteLine("[DEBUG] Invalid credentials.");
                 return Unauthorized("Invalid email or password.");
             }
+
+            Console.WriteLine($"[DEBUG] Login successful for user: {existingUser.Email}");
 
             var token = GenerateJwtToken(existingUser);
             return Ok(new { token });
