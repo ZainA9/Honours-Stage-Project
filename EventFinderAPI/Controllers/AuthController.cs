@@ -54,7 +54,7 @@ namespace EventFinderAPI.Controllers
         public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
         {
             var existingUser = await _usersCollection.Find(u => u.Email == loginRequest.Email).FirstOrDefaultAsync();
-            if (existingUser == null || !BCrypt.Net.BCrypt.Verify(loginRequest.PasswordHash, existingUser.PasswordHash))
+            if (existingUser == null || !BCrypt.Net.BCrypt.Verify(loginRequest.Password, existingUser.PasswordHash))
             {
                 return Unauthorized("Invalid email or password.");
             }
