@@ -1,15 +1,18 @@
 import React from 'react';
 import { Bell } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
-export default function Navbar({ isLoggedIn }) {
+export default function Navbar() {
+  const isLoggedIn = !!localStorage.getItem('token'); // ✅ Check login status
+
   return (
     <nav className="flex items-center justify-between py-4 px-10 border-b">
       <div className="flex items-center gap-12">
         <h1 className="text-2xl font-bold text-indigo-600">EventFinder</h1>
         <div className="flex gap-6 text-[16px] font-medium text-gray-600">
-          <a href="#" className="hover:text-indigo-600">Explore</a>
-          <a href="#" className="hover:text-indigo-600">Categories</a>
-          <a href="#" className="hover:text-indigo-600">Create Event</a>
+          <Link to="/explore" className="hover:text-indigo-600">Explore</Link>
+          <Link to="/categories" className="hover:text-indigo-600">Categories</Link>
+          <Link to="/create-event" className="hover:text-indigo-600">Create Event</Link>
         </div>
       </div>
 
@@ -27,10 +30,10 @@ export default function Navbar({ isLoggedIn }) {
           </>
         ) : (
           <>
-            <a href="#" className="text-gray-600 hover:text-indigo-600">Sign Up</a>
-            <a href="#" className="bg-indigo-600 text-white px-4 py-1.5 rounded-md hover:bg-indigo-700">
+            <Link to="/signup" className="text-gray-600 hover:text-indigo-600">Sign Up</Link>
+            <Link to="/login" className="bg-indigo-600 text-white px-4 py-1.5 rounded-md hover:bg-indigo-700">
               Log In
-            </a>
+            </Link>
           </>
         )}
       </div>

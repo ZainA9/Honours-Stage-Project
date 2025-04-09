@@ -5,7 +5,7 @@ import { Calendar, Search, Laptop, Music2, Utensils, Paintbrush2, Dumbbell, Grad
 import axios from 'axios';
 
 export default function Home() {
-  const isLoggedIn = false; // change to true if needed
+  //const isLoggedIn = false; // change to true if needed
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col font-sans">
-      <Navbar isLoggedIn={isLoggedIn} />
+      <Navbar />
 
       {/* Hero Section */}
       <header className="text-center py-14 bg-gray-50">
