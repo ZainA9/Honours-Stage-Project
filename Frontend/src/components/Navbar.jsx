@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
 import { Bell } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function Navbar() {
-  const isLoggedIn = !!localStorage.getItem('token'); // ✅ Check login status
+  const { isLoggedIn, logout } = useContext(AuthContext);
 
   return (
     <nav className="flex items-center justify-between py-4 px-10 border-b">
@@ -17,27 +18,24 @@ export default function Navbar() {
       </div>
 
       <div className="flex items-center gap-4">
-       {isLoggedIn ? (
-             <>
-        <button className="text-gray-500 hover:text-indigo-600">
-        <Bell />
-        </button>
-        <img
-        className="w-9 h-9 rounded-full object-cover"
-        src="https://placehold.co/40x40"
-        alt="Avatar"
-        />
-        <button
-        onClick={() => {
-          localStorage.removeItem('token');
-          window.location.reload(); // 🔄 Refresh to reflect logout
-        }}
-        className="text-sm text-red-500 hover:text-red-700"
-         >
-        Logout
-        </button>
-        </>
-      ) : (
+        {isLoggedIn ? (
+          <>
+            <button className="text-gray-500 hover:text-indigo-600">
+              <Bell />
+            </button>
+            <img
+              className="w-9 h-9 rounded-full object-cover"
+              src="https://placehold.co/40x40"
+              alt="Avatar"
+            />
+            <button
+              onClick={logout}
+              className="text-sm text-red-500 hover:text-red-700 ml-2"
+            >
+              Logout
+            </button>
+          </>
+        ) : (
           <>
             <Link to="/signup" className="text-gray-600 hover:text-indigo-600">Sign Up</Link>
             <Link to="/login" className="bg-indigo-600 text-white px-4 py-1.5 rounded-md hover:bg-indigo-700">

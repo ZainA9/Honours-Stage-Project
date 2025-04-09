@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
 
 export default function Login() {
+  const { setToken } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
@@ -13,14 +15,12 @@ export default function Login() {
 
     try {
       const response = await axios.post('http://localhost:5154/api/auth/login', {
-        email: email,
-        password: password,
+        email,
+        passwordHash: password,
       });
 
-      const token = response.data.token;
-      localStorage.setItem('token', token); // 🔐 Save token
-
-      navigate('/'); // ✅ Redirect to homepage after login
+      setToken(response.data.token);
+      navigate('/');
     } catch (error) {
       console.error('Login error:', error);
       setErrorMsg('Invalid email or password.');
