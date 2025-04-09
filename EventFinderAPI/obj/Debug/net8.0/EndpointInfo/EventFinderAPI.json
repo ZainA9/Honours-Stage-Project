@@ -502,7 +502,7 @@
       "LoginRequest": {
         "required": [
           "email",
-          "passwordHash"
+          "password"
         ],
         "type": "object",
         "properties": {
@@ -510,7 +510,7 @@
             "minLength": 1,
             "type": "string"
           },
-          "passwordHash": {
+          "password": {
             "minLength": 1,
             "type": "string"
           }

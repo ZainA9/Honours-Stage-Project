@@ -3,6 +3,14 @@
   "WorkspaceRootPath": "C:\\Users\\zain2\\source\\repos\\Honours-Stage-Project\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{697F6E94-3CAC-4CA6-851A-1971500A39A6}|EventFinderAPI\\EventFinderAPI.csproj|c:\\users\\zain2\\source\\repos\\honours-stage-project\\eventfinderapi\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{697F6E94-3CAC-4CA6-851A-1971500A39A6}|EventFinderAPI\\EventFinderAPI.csproj|solutionrelative:eventfinderapi\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{697F6E94-3CAC-4CA6-851A-1971500A39A6}|EventFinderAPI\\EventFinderAPI.csproj|c:\\users\\zain2\\source\\repos\\honours-stage-project\\eventfinderapi\\models\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{697F6E94-3CAC-4CA6-851A-1971500A39A6}|EventFinderAPI\\EventFinderAPI.csproj|solutionrelative:eventfinderapi\\models\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{697F6E94-3CAC-4CA6-851A-1971500A39A6}|EventFinderAPI\\EventFinderAPI.csproj|c:\\users\\zain2\\source\\repos\\honours-stage-project\\eventfinderapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{697F6E94-3CAC-4CA6-851A-1971500A39A6}|EventFinderAPI\\EventFinderAPI.csproj|solutionrelative:eventfinderapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -27,6 +35,36 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\zain2\\source\\repos\\Honours-Stage-Project\\EventFinderAPI\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "EventFinderAPI\\Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\zain2\\source\\repos\\Honours-Stage-Project\\EventFinderAPI\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "EventFinderAPI\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAACwAAAAAAAAAAAAAAD8AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-09T17:51:31.459Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "LoginRequest.cs",
+              "DocumentMoniker": "C:\\Users\\zain2\\source\\repos\\Honours-Stage-Project\\EventFinderAPI\\Models\\LoginRequest.cs",
+              "RelativeDocumentMoniker": "EventFinderAPI\\Models\\LoginRequest.cs",
+              "ToolTip": "C:\\Users\\zain2\\source\\repos\\Honours-Stage-Project\\EventFinderAPI\\Models\\LoginRequest.cs",
+              "RelativeToolTip": "EventFinderAPI\\Models\\LoginRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-09T17:50:44.619Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\zain2\\source\\repos\\Honours-Stage-Project\\EventFinderAPI\\Program.cs",
               "RelativeDocumentMoniker": "EventFinderAPI\\Program.cs",
@@ -38,12 +76,8 @@
               "EditorCaption": ""
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "MongoDBService.cs",
               "DocumentMoniker": "C:\\Users\\zain2\\source\\repos\\Honours-Stage-Project\\EventFinderAPI\\Data\\MongoDBService.cs",
               "RelativeDocumentMoniker": "EventFinderAPI\\Data\\MongoDBService.cs",
@@ -51,12 +85,11 @@
               "RelativeToolTip": "EventFinderAPI\\Data\\MongoDBService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-02T18:20:52.146Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-02T18:20:52.146Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "EventController.cs",
               "DocumentMoniker": "C:\\Users\\zain2\\source\\repos\\Honours-Stage-Project\\EventFinderAPI\\Controllers\\EventController.cs",
               "RelativeDocumentMoniker": "EventFinderAPI\\Controllers\\EventController.cs",
@@ -64,8 +97,7 @@
               "RelativeToolTip": "EventFinderAPI\\Controllers\\EventController.cs",
               "ViewState": "AgIAAAUAAAAAAAAAAAAAAA4AAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-02T18:20:48.834Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-02T18:20:48.834Z"
             }
           ]
         }

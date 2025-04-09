@@ -12,9 +12,9 @@ export default function Login() {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:5154/api/user/login', {
-        email,
-        passwordHash: password,
+      const response = await axios.post('http://localhost:5154/api/auth/login', {
+        email: email,
+        password: password,
       });
 
       const token = response.data.token;
