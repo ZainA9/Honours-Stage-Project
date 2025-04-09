@@ -16,7 +16,7 @@ export default function Login() {
     try {
       const response = await axios.post('http://localhost:5154/api/auth/login', {
         email,
-        passwordHash: password,
+        password: password,
       });
 
       setToken(response.data.token);
