@@ -17,18 +17,27 @@ export default function Navbar() {
       </div>
 
       <div className="flex items-center gap-4">
-        {isLoggedIn ? (
-          <>
-            <button className="text-gray-500 hover:text-indigo-600">
-              <Bell />
-            </button>
-            <img
-              className="w-9 h-9 rounded-full object-cover"
-              src="https://placehold.co/40x40"
-              alt="Avatar"
-            />
-          </>
-        ) : (
+       {isLoggedIn ? (
+             <>
+        <button className="text-gray-500 hover:text-indigo-600">
+        <Bell />
+        </button>
+        <img
+        className="w-9 h-9 rounded-full object-cover"
+        src="https://placehold.co/40x40"
+        alt="Avatar"
+        />
+        <button
+        onClick={() => {
+          localStorage.removeItem('token');
+          window.location.reload(); // 🔄 Refresh to reflect logout
+        }}
+        className="text-sm text-red-500 hover:text-red-700"
+         >
+        Logout
+        </button>
+        </>
+      ) : (
           <>
             <Link to="/signup" className="text-gray-600 hover:text-indigo-600">Sign Up</Link>
             <Link to="/login" className="bg-indigo-600 text-white px-4 py-1.5 rounded-md hover:bg-indigo-700">
