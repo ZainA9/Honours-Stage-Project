@@ -6,6 +6,7 @@ import axios from 'axios';
 
 export default function Home() {
   //const isLoggedIn = false; // change to true if needed
+  const isLoggedIn = !!localStorage.getItem('token');
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
