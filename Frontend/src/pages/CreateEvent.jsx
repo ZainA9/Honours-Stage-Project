@@ -1,61 +1,123 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function CreateEvent() {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     name: '',
     description: '',
-    location: '',
     date: '',
-    category: '',
+    location: '',
+    categories: [],
+    capacity: '',
+    maxTicketsPerUser: '',
+    isPublic: 'true',
   });
 
-  const categories = ['Technology', 'Music', 'Food', 'Arts', 'Sports', 'Education'];
+  const [errorMsg, setErrorMsg] = useState('');
+  const [successMsg, setSuccessMsg] = useState('');
+
+  const categoriesList = ['Technology', 'Music', 'Food', 'Arts', 'Sports', 'Education'];
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value, type, selectedOptions } = e.target;
+
+    if (type === 'select-multiple') {
+      const selected = Array.from(selectedOptions).map(option => option.value);
+      setFormData(prev => ({ ...prev, [name]: selected }));
+    } else {
+      setFormData(prev => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMsg('');
+    setSuccessMsg('');
+
     try {
-      await axios.post('http://localhost:5154/api/events', formData, {
+      const token = localStorage.getItem('token');
+
+      const payload = {
+        ...formData,
+        capacity: Number(formData.capacity),
+        maxTicketsPerUser: Number(formData.maxTicketsPerUser),
+        isPublic: formData.isPublic === 'true',
+      };
+
+      const response = await axios.post('http://localhost:5154/api/events', payload, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          Authorization: `Bearer ${token}`,
         },
       });
-      alert('Event created successfully!');
+
+      setSuccessMsg('Event created successfully!');
+      setTimeout(() => navigate('/'), 1500);
     } catch (error) {
       console.error('Error creating event:', error);
-      alert('Something went wrong.');
+      setErrorMsg('Something went wrong.');
     }
   };
 
   return (
-    <div className="max-w-xl mx-auto mt-10 bg-white p-6 rounded shadow">
-      <h2 className="text-2xl font-bold mb-6 text-center">Create a New Event</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input type="text" name="name" placeholder="Event Name" required
-          className="w-full border rounded px-3 py-2" onChange={handleChange} />
+    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <form onSubmit={handleSubmit} className="bg-white p-8 rounded shadow-md w-full max-w-lg">
+        <h2 className="text-2xl font-bold mb-6 text-center">Create New Event</h2>
 
-        <textarea name="description" placeholder="Event Description" required
-          className="w-full border rounded px-3 py-2" onChange={handleChange}></textarea>
+        {errorMsg && <p className="text-red-500 text-sm mb-4">{errorMsg}</p>}
+        {successMsg && <p className="text-green-500 text-sm mb-4">{successMsg}</p>}
 
-        <input type="text" name="location" placeholder="Location" required
-          className="w-full border rounded px-3 py-2" onChange={handleChange} />
+        {/* Name */}
+        <label className="block font-medium text-gray-700 mb-1">Event Name</label>
+        <input type="text" name="name" value={formData.name} onChange={handleChange}
+          className="mb-4 w-full p-2 border rounded" required />
 
-        <input type="date" name="date" required
-          className="w-full border rounded px-3 py-2" onChange={handleChange} />
+        {/* Description */}
+        <label className="block font-medium text-gray-700 mb-1">Description</label>
+        <textarea name="description" value={formData.description} onChange={handleChange}
+          className="mb-4 w-full p-2 border rounded" required />
 
-        <select name="category" required className="w-full border rounded px-3 py-2" onChange={handleChange}>
-          <option value="">Select Category</option>
-          {categories.map((cat) => (
+        {/* Date */}
+        <label className="block font-medium text-gray-700 mb-1">Date</label>
+        <input type="date" name="date" value={formData.date} onChange={handleChange}
+          className="mb-4 w-full p-2 border rounded" required />
+
+        {/* Location */}
+        <label className="block font-medium text-gray-700 mb-1">Location</label>
+        <input type="text" name="location" value={formData.location} onChange={handleChange}
+          className="mb-4 w-full p-2 border rounded" required />
+
+        {/* Categories */}
+        <label className="block font-medium text-gray-700 mb-1">Select Categories</label>
+        <select name="categories" multiple value={formData.categories} onChange={handleChange}
+          className="mb-4 w-full p-2 border rounded h-32">
+          {categoriesList.map((cat) => (
             <option key={cat} value={cat}>{cat}</option>
           ))}
         </select>
 
+        {/* Capacity */}
+        <label className="block font-medium text-gray-700 mb-1">Capacity</label>
+        <input type="number" name="capacity" value={formData.capacity} onChange={handleChange}
+          className="mb-4 w-full p-2 border rounded" required />
+
+        {/* Max Tickets Per User */}
+        <label className="block font-medium text-gray-700 mb-1">Max Tickets Per User</label>
+        <input type="number" name="maxTicketsPerUser" value={formData.maxTicketsPerUser} onChange={handleChange}
+          className="mb-4 w-full p-2 border rounded" required />
+
+        {/* Is Public */}
+        <label className="block font-medium text-gray-700 mb-1">Is Public?</label>
+        <select name="isPublic" value={formData.isPublic} onChange={handleChange}
+          className="mb-6 w-full p-2 border rounded">
+          <option value="true">Yes</option>
+          <option value="false">No</option>
+        </select>
+
         <button type="submit"
-          className="w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700">
+          className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded">
           Create Event
         </button>
       </form>
