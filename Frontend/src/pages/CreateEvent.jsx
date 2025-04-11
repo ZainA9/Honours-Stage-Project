@@ -20,7 +20,7 @@ export default function CreateEvent() {
   const [errorMsg, setErrorMsg] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
 
-  const categoryList = [
+  const categoryOptions = [
     { value: 'Technology', label: 'Technology' },
     { value: 'Music', label: 'Music' },
     { value: 'Food', label: 'Food' },
