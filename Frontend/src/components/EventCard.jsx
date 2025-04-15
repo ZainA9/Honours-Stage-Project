@@ -30,7 +30,7 @@ export default function EventCard({ event }) {
         <h4 className="font-semibold text-lg">{name}</h4>
         <p className="text-sm text-gray-500 my-2">📅 {new Date(date).toLocaleDateString()}</p>
         <p className="text-sm text-gray-500 mb-4">📍 {location}</p>
-        <button className="text-indigo-600 font-semibold">Get Tickets</button>
+        <button className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-full transition duration-200">Get Tickets</button>
       </div>
     </div>
   );
