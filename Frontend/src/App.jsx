@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import ProtectedRoute from './components/ProtectedRoute';
 import CreateEvent from './pages/CreateEvent';
+import EventDetails from './pages/EventDetails'; //
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/login" element={<Login />} /> 
         <Route path="/signup" element={<Signup />} />
         <Route path="/create-event" element={<ProtectedRoute><CreateEvent /></ProtectedRoute>}/>
+        <Route path="/event/:id" element={<EventDetails />} />
       </Routes>
     </Router>
   );

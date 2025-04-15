@@ -1,5 +1,6 @@
 // components/EventCard.jsx
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const categoryImages = {
   Technology: 'https://source.unsplash.com/featured/?technology,conference',
@@ -30,7 +31,7 @@ export default function EventCard({ event }) {
         <h4 className="font-semibold text-lg">{name}</h4>
         <p className="text-sm text-gray-500 my-2">📅 {new Date(date).toLocaleDateString()}</p>
         <p className="text-sm text-gray-500 mb-4">📍 {location}</p>
-        <button className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-full transition duration-200">Get Tickets</button>
+        <Link to={`/event/${event.id}`} className="inline-block bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Get Tickets</Link>
       </div>
     </div>
   );
