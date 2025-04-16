@@ -52,6 +52,12 @@ namespace EventFinderAPI.Controllers
 
             Console.WriteLine($"[DEBUG] Extracted User ID: {userId}");
             eventData.CreatedBy = userId;
+
+            if (eventData.MaxTicketsPerUser == null)
+            {
+                eventData.MaxTicketsPerUser = 10; // Default value
+            }
+
             await _eventsCollection.InsertOneAsync(eventData);
 
             // Send confirmation email to event creator
