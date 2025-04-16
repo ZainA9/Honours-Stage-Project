@@ -55,7 +55,7 @@ export default function EventDetails() {
 
   if (!event) return <p className="text-center mt-20">Loading event details...</p>;
 
-  const maxTickets = event.maxTicketsPerUser;
+  const maxTickets = event.maxTicketsPerUser > 0 ? event.maxTicketsPerUser : 10;
 
   return (
     <div className="flex flex-col md:flex-row gap-10 p-10 bg-gray-50 min-h-screen">
@@ -91,18 +91,18 @@ export default function EventDetails() {
             </button>
             <span>{tickets}</span>
             <button
-              className="px-2 py-1 border rounded text-lg"
+                  className="px-2 py-1 border rounded text-lg" 
               onClick={() => {
-                if (maxTickets && tickets >= maxTickets) {
-                    setErrorMsg(`Max tickets allowed: ${maxTickets}`);
-                  } else {
-                    setTickets(prev => prev + 1);
-                    setErrorMsg('');
-                  }
-              }}
-            >
-              +
-            </button>
+            if (tickets >= maxTickets) {
+                  setErrorMsg(`Max tickets allowed: ${maxTickets}`);
+            } else {
+          setTickets(prev => prev + 1);
+        setErrorMsg('');
+      }
+    }}
+    >
+   +
+  </button>
           </div>
         </div>
 
