@@ -30,7 +30,7 @@
 
         public bool IsPublic { get; set; } // Public or private event
 
-        public int MaxTicketsPerUser { get; set; } = 5; // Limit per user
+        public int? MaxTicketsPerUser { get; set; } // Limit per user
 
         public List<RSVPEntry> Attendees { get; set; } = new List<RSVPEntry>(); // Stores RSVPs
 
