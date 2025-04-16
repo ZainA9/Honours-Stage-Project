@@ -124,6 +124,10 @@ namespace EventFinderAPI.Controllers
         [HttpPost("{eventId}/rsvp")]
         public async Task<IActionResult> RSVPToEvent(string eventId, [FromBody] int tickets, [FromServices] SmtpEmailService emailService)
         {
+            Console.WriteLine($"[DEBUG] Event ID: {eventId}");
+            Console.WriteLine($"[DEBUG] Tickets Received: {tickets}");
+            //testing logs 
+
             var userId = User.FindFirst("sub")?.Value;
 
             // 🔹 If 'sub' is missing, try 'nameidentifier'
@@ -135,8 +139,11 @@ namespace EventFinderAPI.Controllers
 
             if (string.IsNullOrEmpty(userId))
             {
+                Console.WriteLine("[ERROR] User ID STILL NOT FOUND");
                 return Unauthorized("Invalid token. User not found.");
             }
+
+            Console.WriteLine($"[DEBUG] Extracted User ID: {userId}");
 
             if (string.IsNullOrEmpty(userId))
                 return Unauthorized("Invalid token. User not found.");
