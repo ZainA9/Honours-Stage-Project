@@ -53,9 +53,9 @@ namespace EventFinderAPI.Controllers
             Console.WriteLine($"[DEBUG] Extracted User ID: {userId}");
             eventData.CreatedBy = userId;
 
-            if (eventData.MaxTicketsPerUser == null)
+            if (eventData.MaxTicketsPerUser <= 0)
             {
-                eventData.MaxTicketsPerUser = 10; // Default value
+                eventData.MaxTicketsPerUser = 10;
             }
 
             await _eventsCollection.InsertOneAsync(eventData);
