@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from '../components/Navbar';
 import EventCard from '../components/EventCard';
-import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 export default function EventDetails() {
   const { id } = useParams();
