@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
+using System.Text.Json;
 
 
 namespace EventFinderAPI.Controllers
@@ -25,6 +26,8 @@ namespace EventFinderAPI.Controllers
             _usersCollection = mongoDBService.GetCollection<User>(config["DatabaseSettings:UsersCollectionName"]);
         }
 
+
+
         //Creates event in db and only accessible to logged in users
         [Authorize]
         [HttpPost]
@@ -38,7 +41,6 @@ namespace EventFinderAPI.Controllers
 
             var userId = User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value;
 
-            // 🔹 If `sub` is missing, try `nameidentifier`
             if (string.IsNullOrEmpty(userId))
             {
                 Console.WriteLine("[ERROR] No 'sub' claim found. Checking alternative claim names...");
@@ -53,14 +55,30 @@ namespace EventFinderAPI.Controllers
             Console.WriteLine($"[DEBUG] Extracted User ID: {userId}");
             eventData.CreatedBy = userId;
 
+            // ✅ Default max tickets
             if (eventData.MaxTicketsPerUser <= 0)
             {
                 eventData.MaxTicketsPerUser = 10;
             }
 
+            // ✅ Geocode the location to get coordinates
+            var coords = await GeocodeLocationAsync(eventData.Location);
+            if (coords != null)
+            {
+                eventData.Latitude = coords.Value.lat;
+                eventData.Longitude = coords.Value.lng;
+
+                Console.WriteLine($"[DEBUG] Geocoded: {eventData.Location} => {coords.Value.lat}, {coords.Value.lng}");
+            }
+            else
+            {
+                Console.WriteLine("[WARNING] Geocoding failed. Coordinates not saved.");
+            }
+
+            // ✅ Save event
             await _eventsCollection.InsertOneAsync(eventData);
 
-            // Send confirmation email to event creator
+            // ✅ Email the event creator
             var user = await _usersCollection.Find(u => u.Id == userId).FirstOrDefaultAsync();
             if (user != null)
             {
@@ -74,12 +92,11 @@ namespace EventFinderAPI.Controllers
                 await emailService.SendEmailAsync(user.Email, subject, body);
             }
 
-
             return Ok(new { message = "Event created successfully!", eventId = eventData.Id });
-
         }
 
-        
+
+
         [HttpGet]
         public async Task<IActionResult> GetEvents()
         {
@@ -239,7 +256,7 @@ namespace EventFinderAPI.Controllers
 
         [Authorize]
         [HttpDelete("{eventId}/rsvp")]
-        public async Task<IActionResult> CancelRSVP(string eventId,[FromServices] SmtpEmailService emailService)
+        public async Task<IActionResult> CancelRSVP(string eventId, [FromServices] SmtpEmailService emailService)
         {
             var userId = User.FindFirst("sub")?.Value;
 
@@ -454,6 +471,29 @@ namespace EventFinderAPI.Controllers
             return Ok(new { message = "Event deleted successfully! Attendees notified." });
         }
 
+        private async Task<(double lat, double lng)?> GeocodeLocationAsync(string location)
+        {
+            using var httpClient = new HttpClient();
+            string mapboxToken = "pk.eyJ1IjoiemFpbjIxMDNhIiwiYSI6ImNtOWtwM2dncDBmaW0ya3Nnd3BlaHg1djAifQ.rVKwmgGfMUYyPBmfpeV2tA"; // Replace with your token or fetch from config
+
+            var url = $"https://api.mapbox.com/geocoding/v5/mapbox.places/{Uri.EscapeDataString(location)}.json?access_token={mapboxToken}";
+
+            var response = await httpClient.GetAsync(url);
+            if (!response.IsSuccessStatusCode) return null;
+
+            var json = await response.Content.ReadAsStringAsync();
+            var data = JsonDocument.Parse(json);
+
+            var coords = data.RootElement
+                .GetProperty("features")[0]
+                .GetProperty("geometry")
+                .GetProperty("coordinates");
+
+            double lng = coords[0].GetDouble();
+            double lat = coords[1].GetDouble();
+
+            return (lat, lng);
+        }
     }
 }
 

@@ -19,6 +19,10 @@
         [Required]
         public string Location { get; set; } // Event location
 
+        public double? Latitude { get; set; }
+        public double? Longitude { get; set; }
+
+
         [Required]
         public DateTime Date { get; set; } // Event date & time
 
