@@ -53,13 +53,15 @@ export default function Explore() {
   };
 
   // Dummy coordinates for each event (📍 replace with real lat/lng if stored)
-  const eventCoords = userCoords
-  ? events.map((e, i) => ({
-      lat: userCoords.lat + 0.01 * i,
-      lng: userCoords.lng + 0.01 * i,
-    }))
-  : [];
-
+  const eventCoords = events
+  .filter(e => e.latitude && e.longitude)
+  .map(e => ({
+    lat: e.latitude,
+    lng: e.longitude,
+    name: e.name,
+    id: e.id
+  }));
+  
   return (
     <div className="min-h-screen bg-gray-50 font-sans">
       <Navbar />

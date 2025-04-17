@@ -460,6 +460,16 @@
             "minLength": 1,
             "type": "string"
           },
+          "latitude": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
           "date": {
             "type": "string",
             "format": "date-time"
