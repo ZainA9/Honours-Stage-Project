@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from '../components/Navbar';
 import EventCard from '../components/EventCard';
+import Navbar from '../components/Navbar';
 
 export default function EventDetails() {
   const { id } = useParams();
@@ -81,72 +82,75 @@ export default function EventDetails() {
   const eventImage = categoryImages[event.categories?.[0]] || 'https://source.unsplash.com/featured/?event';
 
   return (
-    <div className="min-h-screen bg-gray-50 font-sans">
+    <div className="min-h-screen flex flex-col bg-gray-50 font-sans">
       <Navbar />
 
-      <div className="flex flex-col md:flex-row gap-10 p-10">
-        {/* Left Section */}
-        <div className="flex-1 bg-white rounded-xl shadow p-6">
-          <img src={eventImage} alt="Event" className="w-full h-60 object-cover rounded mb-4" />
-          <h1 className="text-3xl font-bold mb-2">{event.name}</h1>
-          <p className="text-gray-700 mb-4">{event.description}</p>
-          <p className="text-gray-500 text-sm mb-1">📍 {event.location}</p>
-          <p className="text-gray-500 text-sm mb-1">📅 {new Date(event.date).toLocaleDateString()}</p>
-          <p className="text-gray-500 text-sm">🎟 Max Tickets per Person: {maxTickets}</p>
-          <div className="mt-4">
-            <span className="text-sm font-semibold text-indigo-600">
-              Categories: {event.categories?.join(', ')}
-            </span>
-          </div>
-        </div>
-
-        {/* RSVP */}
-        <div className="w-full md:w-1/3 bg-white rounded-xl shadow p-6">
-          <h2 className="text-xl font-semibold mb-4">Reserve Tickets</h2>
-          <div className="flex items-center justify-between mb-4">
-            <span className="text-sm font-medium">Tickets</span>
-            <div className="flex items-center gap-2">
-              <button
-                className="px-2 py-1 border rounded text-lg"
-                onClick={() => setTickets(prev => Math.max(1, prev - 1))}
-              >-</button>
-              <span>{tickets}</span>
-              <button
-                className="px-2 py-1 border rounded text-lg"
-                onClick={() => {
-                  if (tickets >= maxTickets) {
-                    setErrorMsg(`Max tickets allowed: ${maxTickets}`);
-                  } else {
-                    setTickets(prev => prev + 1);
-                    setErrorMsg('');
-                  }
-                }}
-              >+</button>
+      <main className="flex-1">
+        {/* Event Content */}
+        <div className="flex flex-col md:flex-row gap-10 p-10">
+          {/* Event Info */}
+          <div className="flex-1 bg-white rounded-xl shadow p-6">
+            <img src={eventImage} alt="Event" className="w-full h-60 object-cover rounded mb-4" />
+            <h1 className="text-3xl font-bold mb-2">{event.name}</h1>
+            <p className="text-gray-700 mb-4">{event.description}</p>
+            <p className="text-gray-500 text-sm mb-1">📍 {event.location}</p>
+            <p className="text-gray-500 text-sm mb-1">📅 {new Date(event.date).toLocaleDateString()}</p>
+            <p className="text-gray-500 text-sm">🎟 Max Tickets per Person: {maxTickets}</p>
+            <div className="mt-4">
+              <span className="text-sm font-semibold text-indigo-600">
+                Categories: {event.categories?.join(', ')}
+              </span>
             </div>
           </div>
-          {errorMsg && <p className="text-sm text-red-500 mb-4">{errorMsg}</p>}
-          <button
-            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded"
-            onClick={handleCheckout}
-          >
-            Checkout
-          </button>
-        </div>
-      </div>
 
-      {/* Related Events */}
-      {relatedEvents.length > 0 && (
-        <section className="px-10 pb-20">
-          <h3 className="text-2xl font-bold mb-6">You May Also Like</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {relatedEvents.map(event => (
-              <EventCard key={event.id} event={event} />
-            ))}
+          {/* RSVP Box */}
+          <div className="w-full md:w-1/3 bg-white rounded-xl shadow p-6">
+            <h2 className="text-xl font-semibold mb-4">Reserve Tickets</h2>
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-sm font-medium">Tickets</span>
+              <div className="flex items-center gap-2">
+                <button
+                  className="px-2 py-1 border rounded text-lg"
+                  onClick={() => setTickets(prev => Math.max(1, prev - 1))}
+                >-</button>
+                <span>{tickets}</span>
+                <button
+                  className="px-2 py-1 border rounded text-lg"
+                  onClick={() => {
+                    if (tickets >= maxTickets) {
+                      setErrorMsg(`Max tickets allowed: ${maxTickets}`);
+                    } else {
+                      setTickets(prev => prev + 1);
+                      setErrorMsg('');
+                    }
+                  }}
+                >+</button>
+              </div>
+            </div>
+            {errorMsg && <p className="text-sm text-red-500 mb-4">{errorMsg}</p>}
+            <button
+              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded"
+              onClick={handleCheckout}
+            >
+              Checkout
+            </button>
           </div>
-        </section>
-      )}
+        </div>
 
-      {/* Modal */}
+        {/* Related Events */}
+        {relatedEvents.length > 0 && (
+          <section className="px-10 pb-20">
+            <h3 className="text-2xl font-bold mb-6">You May Also Like</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+              {relatedEvents.map(event => (
+                <EventCard key={event.id} event={event} />
+              ))}
+            </div>
+          </section>
+        )}
+      </main>
+
+      {/* RSVP Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
           <div className="bg-white p-6 rounded-lg w-[90%] md:w-[500px] shadow-lg relative">
@@ -184,8 +188,7 @@ export default function EventDetails() {
         </div>
       )}
 
-      {/* Optional Footer (uncomment if you add footer component) */}
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }
