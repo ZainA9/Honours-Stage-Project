@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import Navbar from '../components/Navbar';
+import EventCard from '../components/EventCard';
 
 export default function EventDetails() {
   const { id } = useParams();
   const [event, setEvent] = useState(null);
+  const [relatedEvents, setRelatedEvents] = useState([]);
   const [tickets, setTickets] = useState(1);
   const [errorMsg, setErrorMsg] = useState('');
   const [showModal, setShowModal] = useState(false);
@@ -24,6 +27,19 @@ export default function EventDetails() {
     fetchEvent();
   }, [id]);
 
+  useEffect(() => {
+    if (event?.categories?.length > 0) {
+      const category = event.categories[0];
+      axios
+        .get(`http://localhost:5154/api/events/search?category=${category}`)
+        .then(res => {
+          const filtered = res.data.filter(e => e.id !== id);
+          setRelatedEvents(filtered);
+        })
+        .catch(err => console.error('Error fetching related events:', err));
+    }
+  }, [event, id]);
+
   const handleCheckout = () => {
     setShowModal(true);
   };
@@ -31,8 +47,7 @@ export default function EventDetails() {
   const handleRSVP = async () => {
     try {
       const token = localStorage.getItem('token');
-
-      const response = await axios.post(
+      await axios.post(
         `http://localhost:5154/api/events/${id}/rsvp`,
         tickets,
         {
@@ -43,12 +58,10 @@ export default function EventDetails() {
         }
       );
 
-      console.log('RSVP successful:', response.data);
       alert('RSVP confirmed! Check your email for confirmation.');
       setShowModal(false);
-      setTickets(1); // Reset to default
+      setTickets(1);
     } catch (error) {
-      console.error('RSVP error:', error);
       alert(error?.response?.data?.message || 'RSVP failed.');
     }
   };
@@ -57,64 +70,81 @@ export default function EventDetails() {
 
   const maxTickets = event.maxTicketsPerUser > 0 ? event.maxTicketsPerUser : 10;
 
+  const categoryImages = {
+    Technology: 'https://source.unsplash.com/featured/?technology,conference',
+    Music: 'https://source.unsplash.com/featured/?music,concert',
+    Food: 'https://source.unsplash.com/featured/?food,festival',
+    Arts: 'https://source.unsplash.com/featured/?art,painting',
+    Sports: 'https://source.unsplash.com/featured/?sports,fitness',
+    Education: 'https://source.unsplash.com/featured/?education,classroom',
+  };
+  const eventImage = categoryImages[event.categories?.[0]] || 'https://source.unsplash.com/featured/?event';
+
   return (
-    <div className="flex flex-col md:flex-row gap-10 p-10 bg-gray-50 min-h-screen">
-      {/* Left Section - Event Info */}
-      <div className="flex-1 bg-white rounded-xl shadow p-6">
-        <h1 className="text-3xl font-bold mb-2">{event.name}</h1>
-        <p className="text-gray-700 mb-4">{event.description}</p>
-        <p className="text-gray-500 text-sm mb-1">📍 {event.location}</p>
-        <p className="text-gray-500 text-sm mb-1">📅 {new Date(event.date).toLocaleDateString()}</p>
-        {maxTickets !== undefined && (
-  <p className="text-gray-500 text-sm">🎟 Max Tickets per Person: {maxTickets}</p>
-)}
+    <div className="min-h-screen bg-gray-50 font-sans">
+      <Navbar />
 
-        <div className="mt-4">
-          <span className="text-sm font-semibold text-indigo-600">
-            Categories: {event.categories?.join(', ')}
-          </span>
-        </div>
-      </div>
-
-      {/* Right Section - RSVP */}
-      <div className="w-full md:w-1/3 bg-white rounded-xl shadow p-6">
-        <h2 className="text-xl font-semibold mb-4">Reserve Tickets</h2>
-
-        <div className="flex items-center justify-between mb-4">
-          <span className="text-sm font-medium">Tickets</span>
-          <div className="flex items-center gap-2">
-            <button
-              className="px-2 py-1 border rounded text-lg"
-              onClick={() => setTickets(prev => Math.max(1, prev - 1))}
-            >
-              -
-            </button>
-            <span>{tickets}</span>
-            <button
-                  className="px-2 py-1 border rounded text-lg" 
-              onClick={() => {
-            if (tickets >= maxTickets) {
-                  setErrorMsg(`Max tickets allowed: ${maxTickets}`);
-            } else {
-          setTickets(prev => prev + 1);
-        setErrorMsg('');
-      }
-    }}
-    >
-   +
-  </button>
+      <div className="flex flex-col md:flex-row gap-10 p-10">
+        {/* Left Section */}
+        <div className="flex-1 bg-white rounded-xl shadow p-6">
+          <img src={eventImage} alt="Event" className="w-full h-60 object-cover rounded mb-4" />
+          <h1 className="text-3xl font-bold mb-2">{event.name}</h1>
+          <p className="text-gray-700 mb-4">{event.description}</p>
+          <p className="text-gray-500 text-sm mb-1">📍 {event.location}</p>
+          <p className="text-gray-500 text-sm mb-1">📅 {new Date(event.date).toLocaleDateString()}</p>
+          <p className="text-gray-500 text-sm">🎟 Max Tickets per Person: {maxTickets}</p>
+          <div className="mt-4">
+            <span className="text-sm font-semibold text-indigo-600">
+              Categories: {event.categories?.join(', ')}
+            </span>
           </div>
         </div>
 
-        {errorMsg && <p className="text-sm text-red-500 mb-4">{errorMsg}</p>}
-
-        <button
-          className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded"
-          onClick={handleCheckout}
-        >
-          Checkout
-        </button>
+        {/* RSVP */}
+        <div className="w-full md:w-1/3 bg-white rounded-xl shadow p-6">
+          <h2 className="text-xl font-semibold mb-4">Reserve Tickets</h2>
+          <div className="flex items-center justify-between mb-4">
+            <span className="text-sm font-medium">Tickets</span>
+            <div className="flex items-center gap-2">
+              <button
+                className="px-2 py-1 border rounded text-lg"
+                onClick={() => setTickets(prev => Math.max(1, prev - 1))}
+              >-</button>
+              <span>{tickets}</span>
+              <button
+                className="px-2 py-1 border rounded text-lg"
+                onClick={() => {
+                  if (tickets >= maxTickets) {
+                    setErrorMsg(`Max tickets allowed: ${maxTickets}`);
+                  } else {
+                    setTickets(prev => prev + 1);
+                    setErrorMsg('');
+                  }
+                }}
+              >+</button>
+            </div>
+          </div>
+          {errorMsg && <p className="text-sm text-red-500 mb-4">{errorMsg}</p>}
+          <button
+            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded"
+            onClick={handleCheckout}
+          >
+            Checkout
+          </button>
+        </div>
       </div>
+
+      {/* Related Events */}
+      {relatedEvents.length > 0 && (
+        <section className="px-10 pb-20">
+          <h3 className="text-2xl font-bold mb-6">You May Also Like</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            {relatedEvents.map(event => (
+              <EventCard key={event.id} event={event} />
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Modal */}
       {showModal && (
@@ -153,6 +183,9 @@ export default function EventDetails() {
           </div>
         </div>
       )}
+
+      {/* Optional Footer (uncomment if you add footer component) */}
+      {/* <Footer /> */}
     </div>
   );
 }
