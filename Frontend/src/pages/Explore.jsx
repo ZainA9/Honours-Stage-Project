@@ -1,81 +1,82 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import EventCard from '../components/EventCard';
 import Navbar from '../components/Navbar';
+import EventCard from '../components/EventCard';
 import Footer from '../components/Footer';
+import MapView from '../components/MapView';
 
 export default function Explore() {
-  const [location, setLocation] = useState('');
-  const [date, setDate] = useState('');
-  const [category, setCategory] = useState('');
   const [events, setEvents] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [filters, setFilters] = useState({
+    category: '',
+    location: '',
+    date: '',
+  });
+  const [userCoords, setUserCoords] = useState(null);
 
+  // Fetch user location
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        setUserCoords({
+          lat: pos.coords.latitude,
+          lng: pos.coords.longitude
+        });
+      },
+      (err) => console.error("Geolocation error:", err),
+      { enableHighAccuracy: true }
+    );
+  }, []);
+
+  // Fetch filtered events
   const fetchEvents = async () => {
     try {
-      setLoading(true);
-      const params = {};
-      if (location) params.location = location;
-      if (date) params.date = date;
-      if (category) params.category = category;
+      const query = new URLSearchParams();
+      if (filters.category) query.append('category', filters.category);
+      if (filters.location) query.append('location', filters.location);
+      if (filters.date) query.append('date', filters.date);
 
-      const response = await axios.get('http://localhost:5154/api/events/search', { params });
+      const response = await axios.get(`http://localhost:5154/api/events/search?${query.toString()}`);
       setEvents(response.data);
-    } catch (error) {
-      console.error('Error fetching events:', error);
-    } finally {
-      setLoading(false);
+    } catch (err) {
+      console.error('Error fetching events:', err);
     }
   };
 
   useEffect(() => {
-    fetchEvents(); // On mount
-  }, []);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
     fetchEvents();
+  }, [filters]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFilters(prev => ({ ...prev, [name]: value }));
   };
+
+  // Dummy coordinates for each event (📍 replace with real lat/lng if stored)
+  const eventCoords = userCoords
+  ? events.map((e, i) => ({
+      lat: userCoords.lat + 0.01 * i,
+      lng: userCoords.lng + 0.01 * i,
+    }))
+  : [];
 
   return (
     <div className="min-h-screen bg-gray-50 font-sans">
       <Navbar />
 
-      <div className="flex flex-col lg:flex-row px-10 pt-8 gap-6">
-        {/* Sidebar Filters */}
-        <aside className="w-full lg:w-1/4 bg-white rounded-lg shadow p-6">
-          <h3 className="text-xl font-semibold mb-4">Filter Events</h3>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Location */}
-            <div>
-              <label className="block text-sm font-medium">Location</label>
-              <input
-                type="text"
-                className="w-full border px-3 py-2 rounded"
-                placeholder="e.g. Manchester"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-              />
-            </div>
+      <div className="px-10 py-8">
+        <h2 className="text-3xl font-bold mb-6">Explore Events</h2>
 
-            {/* Date */}
+        <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-6">
+          {/* Sidebar */}
+          <aside className="bg-white rounded-lg shadow p-4 space-y-4 h-fit lg:sticky lg:top-28 self-start">
             <div>
-              <label className="block text-sm font-medium">Date</label>
-              <input
-                type="date"
-                className="w-full border px-3 py-2 rounded"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-              />
-            </div>
-
-            {/* Category */}
-            <div>
-              <label className="block text-sm font-medium">Category</label>
+              <label className="block text-sm font-medium text-gray-700">Category</label>
               <select
-                className="w-full border px-3 py-2 rounded"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
+                name="category"
+                value={filters.category}
+                onChange={handleChange}
+                className="w-full mt-1 border rounded px-3 py-2"
               >
                 <option value="">All Categories</option>
                 <option value="Technology">Technology</option>
@@ -87,39 +88,63 @@ export default function Explore() {
               </select>
             </div>
 
-            <button
-              type="submit"
-              className="w-full bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700"
-            >
-              Search
-            </button>
-          </form>
-        </aside>
-
-        {/* Main Content */}
-        <main className="flex-1">
-          {/* Map Placeholder */}
-          <div className="mb-8 bg-white p-4 rounded shadow h-[300px] flex items-center justify-center text-gray-500">
-            🗺️ Google Maps integration coming soon...
-          </div>
-
-          {/* Event Results */}
-          <h2 className="text-2xl font-bold mb-4">Events</h2>
-
-          {loading ? (
-            <p>Loading...</p>
-          ) : events.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-              {events.map((event) => (
-                <EventCard key={event.id} event={event} />
-              ))}
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Location</label>
+              <input
+                type="text"
+                name="location"
+                value={filters.location}
+                onChange={handleChange}
+                placeholder="e.g. London"
+                className="w-full mt-1 border rounded px-3 py-2"
+              />
             </div>
-          ) : (
-            <p className="text-gray-500">No events found for the selected filters.</p>
-          )}
-        </main>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Date</label>
+              <input
+                type="date"
+                name="date"
+                value={filters.date}
+                onChange={handleChange}
+                className="w-full mt-1 border rounded px-3 py-2"
+              />
+            </div>
+
+            <button
+              onClick={() => setFilters({ category: '', location: '', date: '' })}
+              className="text-sm text-indigo-600 hover:underline mt-2"
+            >
+              Clear Filters
+            </button>
+          </aside>
+
+          {/* Main Content */}
+          <div className="flex flex-col gap-12">
+            {/* Map Section */}
+            <div className="bg-white rounded-lg shadow p-4">
+              <h3 className="text-xl font-semibold mb-4">Map View</h3>
+              <MapView userCoords={userCoords} eventCoords={eventCoords} />
+            </div>
+
+            {/* Events Grid */}
+            <div>
+              <h3 className="text-xl font-semibold mb-4">Events</h3>
+              {events.length > 0 ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {events.map(event => (
+                    <EventCard key={event.id} event={event} />
+                  ))}
+                </div>
+              ) : (
+                <p className="text-gray-500 text-center mt-10">No events found.</p>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
-          <Footer />
+
+      <Footer />
     </div>
   );
 }
