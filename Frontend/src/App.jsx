@@ -4,7 +4,8 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import ProtectedRoute from './components/ProtectedRoute';
 import CreateEvent from './pages/CreateEvent';
-import EventDetails from './pages/EventDetails'; //
+import EventDetails from './pages/EventDetails'; 
+import Explore from './pages/Explore';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/create-event" element={<ProtectedRoute><CreateEvent /></ProtectedRoute>}/>
         <Route path="/event/:id" element={<EventDetails />} />
+        <Route path="/explore" element={<Explore />} />
       </Routes>
     </Router>
   );
