@@ -185,6 +185,16 @@
   },
   {
     "ContainingType": "EventFinderAPI.Controllers.EventController",
+    "Method": "GetMyRSVPs",
+    "RelativePath": "api/events/my-rsvps",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EventFinderAPI.Controllers.EventController",
     "Method": "GetMyEvents",
     "RelativePath": "api/events/myevents",
     "HttpMethod": "GET",

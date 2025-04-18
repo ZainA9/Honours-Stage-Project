@@ -349,6 +349,18 @@
         }
       }
     },
+    "/api/events/my-rsvps": {
+      "get": {
+        "tags": [
+          "Event"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/users": {
       "post": {
         "tags": [
