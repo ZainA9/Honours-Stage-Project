@@ -471,6 +471,31 @@ namespace EventFinderAPI.Controllers
             return Ok(new { message = "Event deleted successfully! Attendees notified." });
         }
 
+
+        [Authorize]
+        [HttpGet("my-rsvps")]
+        public async Task<IActionResult> GetMyRSVPs()
+        {
+            var userId = User.FindFirst("sub")?.Value;
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                Console.WriteLine("[ERROR] No 'sub' claim found. Checking alternative claim names...");
+                userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            }
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized("Invalid token. User not found.");
+            }
+
+            // 🔍 Find all events where this user has RSVP’d
+            var filter = Builders<Event>.Filter.ElemMatch(e => e.Attendees, a => a.UserId == userId);
+            var rsvpEvents = await _eventsCollection.Find(filter).ToListAsync();
+
+            return Ok(rsvpEvents);
+        }
+
         private async Task<(double lat, double lng)?> GeocodeLocationAsync(string location)
         {
             using var httpClient = new HttpClient();
