@@ -23,6 +23,12 @@ export default function Navbar() {
             <button className="text-gray-500 hover:text-indigo-600">
               <Bell />
             </button>
+            <Link
+              to="/profile"
+              className="text-sm text-indigo-600 hover:underline font-medium"
+            >
+              My Profile
+            </Link>
             <img
               className="w-9 h-9 rounded-full object-cover"
               src="https://placehold.co/40x40"

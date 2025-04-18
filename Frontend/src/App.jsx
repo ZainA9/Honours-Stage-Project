@@ -6,6 +6,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import CreateEvent from './pages/CreateEvent';
 import EventDetails from './pages/EventDetails'; 
 import Explore from './pages/Explore';
+import UserProfile from './pages/UserProfile';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/create-event" element={<ProtectedRoute><CreateEvent /></ProtectedRoute>}/>
         <Route path="/event/:id" element={<EventDetails />} />
         <Route path="/explore" element={<Explore />} />
+        <Route path="/profile" element={<UserProfile />} />
       </Routes>
     </Router>
   );
