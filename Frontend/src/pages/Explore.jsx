@@ -17,10 +17,10 @@ export default function Explore() {
   // Single filters state, with category initialized from the URL
   const [filters, setFilters] = useState({
     category: params.get('category') || '',
-    location: '',
-    date: '',
+    location: params.get('location') || '',
+    date:     params.get('date')     || '',
   });
-
+  
   const [userCoords, setUserCoords] = useState(null);
 
   // Fetch user location once
