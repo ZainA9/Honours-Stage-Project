@@ -1,67 +1,76 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';    // ← import useLocation
 import Navbar from '../components/Navbar';
 import EventCard from '../components/EventCard';
 import Footer from '../components/Footer';
 import MapView from '../components/MapView';
 
 export default function Explore() {
+  // Read ?category= from the URL
+  const { search } = useLocation();
+  const params   = new URLSearchParams(search);
+
+  // Single events state
   const [events, setEvents] = useState([]);
+
+  // Single filters state, with category initialized from the URL
   const [filters, setFilters] = useState({
-    category: '',
+    category: params.get('category') || '',
     location: '',
     date: '',
   });
+
   const [userCoords, setUserCoords] = useState(null);
 
-  // Fetch user location
+  // Fetch user location once
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
-      (pos) => {
+      (pos) =>
         setUserCoords({
           lat: pos.coords.latitude,
-          lng: pos.coords.longitude
-        });
-      },
-      (err) => console.error("Geolocation error:", err),
+          lng: pos.coords.longitude,
+        }),
+      (err) => console.error('Geolocation error:', err),
       { enableHighAccuracy: true }
     );
   }, []);
 
-  // Fetch filtered events
-  const fetchEvents = async () => {
-    try {
-      const query = new URLSearchParams();
-      if (filters.category) query.append('category', filters.category);
-      if (filters.location) query.append('location', filters.location);
-      if (filters.date) query.append('date', filters.date);
-
-      const response = await axios.get(`http://localhost:5154/api/events/search?${query.toString()}`);
-      setEvents(response.data);
-    } catch (err) {
-      console.error('Error fetching events:', err);
-    }
-  };
-
+  // Fetch filtered events whenever filters change
   useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const query = new URLSearchParams();
+        if (filters.category) query.append('category', filters.category);
+        if (filters.location) query.append('location',  filters.location);
+        if (filters.date)     query.append('date',      filters.date);
+
+        const response = await axios.get(
+          `http://localhost:5154/api/events/search?${query.toString()}`
+        );
+        setEvents(response.data);
+      } catch (err) {
+        console.error('Error fetching events:', err);
+      }
+    };
     fetchEvents();
   }, [filters]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFilters(prev => ({ ...prev, [name]: value }));
+    setFilters((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Dummy coordinates for each event (📍 replace with real lat/lng if stored)
+  // Prepare coords for the map
   const eventCoords = events
-  .filter(e => e.latitude && e.longitude)
-  .map(e => ({
-    lat: e.latitude,
-    lng: e.longitude,
-    name: e.name,
-    id: e.id
-  }));
-  
+    .filter((e) => e.latitude && e.longitude)
+    .map((e) => ({
+      lat:  e.latitude,
+      lng:  e.longitude,
+      name: e.name,
+      id:   e.id,
+    }));
+
   return (
     <div className="min-h-screen bg-gray-50 font-sans">
       <Navbar />
@@ -73,7 +82,9 @@ export default function Explore() {
           {/* Sidebar */}
           <aside className="bg-white rounded-lg shadow p-4 space-y-4 h-fit lg:sticky lg:top-28 self-start">
             <div>
-              <label className="block text-sm font-medium text-gray-700">Category</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Category
+              </label>
               <select
                 name="category"
                 value={filters.category}
@@ -91,7 +102,9 @@ export default function Explore() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">Location</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Location
+              </label>
               <input
                 type="text"
                 name="location"
@@ -103,7 +116,9 @@ export default function Explore() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">Date</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Date
+              </label>
               <input
                 type="date"
                 name="date"
@@ -134,12 +149,14 @@ export default function Explore() {
               <h3 className="text-xl font-semibold mb-4">Events</h3>
               {events.length > 0 ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {events.map(event => (
+                  {events.map((event) => (
                     <EventCard key={event.id} event={event} />
                   ))}
                 </div>
               ) : (
-                <p className="text-gray-500 text-center mt-10">No events found.</p>
+                <p className="text-gray-500 text-center mt-10">
+                  No events found.
+                </p>
               )}
             </div>
           </div>
