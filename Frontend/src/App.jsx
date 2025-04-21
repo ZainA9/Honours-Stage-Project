@@ -7,6 +7,7 @@ import CreateEvent from './pages/CreateEvent';
 import EventDetails from './pages/EventDetails'; 
 import Explore from './pages/Explore';
 import UserProfile from './pages/UserProfile';
+import MyEvents from './pages/MyEvents';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/event/:id" element={<EventDetails />} />
         <Route path="/explore" element={<Explore />} />
         <Route path="/profile" element={<UserProfile />} />
+        <Route path="/my-events" element={<MyEvents />} />
       </Routes>
     </Router>
   );
