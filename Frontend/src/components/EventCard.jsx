@@ -1,4 +1,6 @@
+// src/components/EventCard.jsx
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const DEFAULT_IMAGE   = '/images/event-fallback.jpg';
 const CATEGORY_IMAGES = {
@@ -10,11 +12,11 @@ const CATEGORY_IMAGES = {
   Education:  '/images/education.jpg',
 };
 
-export default function MyEventCard({ event, onEdit, onDelete }) {
+export default function EventCard({ event }) {
   const { id, name, location, date, categories, imageUrl } = event;
   const category = categories?.[0] || 'General';
 
-  // Priority: event.imageUrl → local category image → fallback
+  // Pick the image in order: event.imageUrl → local category → fallback
   const src =
     imageUrl ||
     CATEGORY_IMAGES[category] ||
@@ -27,7 +29,6 @@ export default function MyEventCard({ event, onEdit, onDelete }) {
         alt={name}
         className="h-52 w-full object-cover"
         onError={e => {
-          // If any URL fails, fall back to the generic image
           e.currentTarget.onerror = null;
           e.currentTarget.src = DEFAULT_IMAGE;
         }}
@@ -41,20 +42,12 @@ export default function MyEventCard({ event, onEdit, onDelete }) {
           📅 {new Date(date).toLocaleDateString()}
         </p>
         <p className="text-sm text-gray-500 mb-4">📍 {location}</p>
-        <div className="flex gap-2">
-          <button
-            onClick={() => onEdit(id)}
-            className="flex-1 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-          >
-            Edit Event
-          </button>
-          <button
-            onClick={() => onDelete(id)}
-            className="flex-1 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
-          >
-            Delete Event
-          </button>
-        </div>
+        <Link
+          to={`/event/${id}`}
+          className="inline-block bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700"
+        >
+          Get Tickets
+        </Link>
       </div>
     </div>
   );

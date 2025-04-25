@@ -71,15 +71,16 @@ export default function EventDetails() {
 
   const maxTickets = event.maxTicketsPerUser > 0 ? event.maxTicketsPerUser : 10;
 
-  const categoryImages = {
-    Technology: 'https://source.unsplash.com/featured/?technology,conference',
-    Music: 'https://source.unsplash.com/featured/?music,concert',
-    Food: 'https://source.unsplash.com/featured/?food,festival',
-    Arts: 'https://source.unsplash.com/featured/?art,painting',
-    Sports: 'https://source.unsplash.com/featured/?sports,fitness',
-    Education: 'https://source.unsplash.com/featured/?education,classroom',
+  const DEFAULT_IMAGE = '/images/event-fallback.jpg';
+  const CATEGORY_IMAGES = {
+    Technology: '/images/technology.jpg',
+    Music:      '/images/music.jpg',
+    Food:       '/images/food.jpg',
+    Arts:       '/images/arts.jpg',
+    Sports:     '/images/sports.jpg',
+    Education:  '/images/education.jpg',
   };
-  const eventImage = categoryImages[event.categories?.[0]] || 'https://source.unsplash.com/featured/?event';
+  const eventImage = event.imageUrl || CATEGORY_IMAGES[event.categories?.[0]] || DEFAULT_IMAGE;
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 font-sans">
@@ -90,7 +91,7 @@ export default function EventDetails() {
         <div className="flex flex-col md:flex-row gap-10 p-10">
           {/* Event Info */}
           <div className="flex-1 bg-white rounded-xl shadow p-6">
-            <img src={eventImage} alt="Event" className="w-full h-60 object-cover rounded mb-4" />
+          <img src={eventImage} alt={event.name} className="w-full h-60 object-cover rounded mb-4" onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = DEFAULT_IMAGE;}}/>
             <h1 className="text-3xl font-bold mb-2">{event.name}</h1>
             <p className="text-gray-700 mb-4">{event.description}</p>
             <p className="text-gray-500 text-sm mb-1">📍 {event.location}</p>

@@ -1,33 +1,44 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
-const categoryImages = {
-  Technology: 'https://source.unsplash.com/featured/?technology,conference',
-  Music:      'https://source.unsplash.com/featured/?music,concert',
-  Food:       'https://source.unsplash.com/featured/?food,festival',
-  Arts:       'https://source.unsplash.com/featured/?art,painting',
-  Sports:     'https://source.unsplash.com/featured/?sports,fitness',
-  Education:  'https://source.unsplash.com/featured/?education,classroom',
+const DEFAULT_IMAGE   = '/images/event-fallback.jpg';
+const CATEGORY_IMAGES = {
+  Technology: '/images/technology.jpg',
+  Music:      '/images/music.jpg',
+  Food:       '/images/food.jpg',
+  Arts:       '/images/arts.jpg',
+  Sports:     '/images/sports.jpg',
+  Education:  '/images/education.jpg',
 };
 
 export default function MyEventCard({ event, onEdit, onDelete }) {
-  const { id, name, location, date, categories } = event;
+  const { id, name, location, date, categories, imageUrl } = event;
   const category = categories?.[0] || 'General';
-  const image = categoryImages[category] || 'https://source.unsplash.com/featured/?event';
+
+  // event.imageUrl → local category image → fallback
+  const src =
+    imageUrl ||
+    CATEGORY_IMAGES[category] ||
+    DEFAULT_IMAGE;
 
   return (
     <div className="bg-white rounded-xl shadow overflow-hidden">
       <img
-        src={image}
+        src={src}
         alt={name}
         className="h-52 w-full object-cover"
+        onError={e => {
+          e.currentTarget.onerror = null; 
+          e.currentTarget.src = DEFAULT_IMAGE;
+        }}
       />
       <div className="p-4">
         <span className="inline-block text-sm bg-indigo-100 text-indigo-600 px-2 py-0.5 rounded-full mb-2">
           {category}
         </span>
         <h4 className="font-semibold text-lg">{name}</h4>
-        <p className="text-sm text-gray-500 my-2">📅 {new Date(date).toLocaleDateString()}</p>
+        <p className="text-sm text-gray-500 my-2">
+          📅 {new Date(date).toLocaleDateString()}
+        </p>
         <p className="text-sm text-gray-500 mb-4">📍 {location}</p>
         <div className="flex gap-2">
           <button

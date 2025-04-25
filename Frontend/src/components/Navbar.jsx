@@ -12,6 +12,7 @@ export default function Navbar() {
         <h1 className="text-2xl font-bold text-indigo-600">EventFinder</h1>
         <div className="flex gap-6 text-[16px] font-medium text-gray-600">
           <Link to="/explore" className="hover:text-indigo-600">Explore</Link>
+          <Link to="/calendar"  className="hover:text-indigo-600">Calendar</Link>
           <Link to="/categories" className="hover:text-indigo-600">Categories</Link>
           <Link to="/create-event" className="hover:text-indigo-600">Create Event</Link>
         </div>

@@ -9,6 +9,7 @@ import Explore from './pages/Explore';
 import UserProfile from './pages/UserProfile';
 import MyEvents from './pages/MyEvents';
 import Categories from './pages/Categories';
+import CalendarView from './pages/CalendarView';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/my-events" element={<MyEvents />} />
         <Route path="/categories" element={<Categories />} />
+        <Route path="/calendar" element={<CalendarView />} />
       </Routes>
     </Router>
   );
