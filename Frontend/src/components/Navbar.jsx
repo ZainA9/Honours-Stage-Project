@@ -9,8 +9,9 @@ export default function Navbar() {
   return (
     <nav className="flex items-center justify-between py-4 px-10 border-b">
       <div className="flex items-center gap-12">
-        <h1 className="text-2xl font-bold text-indigo-600">EventFinder</h1>
+        <Link to="/" className="text-2xl font-bold text-indigo-600 hover:text-indigo-800">EventFinder</Link>
         <div className="flex gap-6 text-[16px] font-medium text-gray-600">
+        <Link to="/" className="hover:text-indigo-600">Home</Link>
           <Link to="/explore" className="hover:text-indigo-600">Explore</Link>
           <Link to="/calendar"  className="hover:text-indigo-600">Calendar</Link>
           <Link to="/categories" className="hover:text-indigo-600">Categories</Link>

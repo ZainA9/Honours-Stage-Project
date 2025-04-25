@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext'; // ✅ Add this line
 
 export default function Signup() {
@@ -86,6 +86,12 @@ export default function Signup() {
         >
           Sign Up
         </button>
+        <p className="text-center text-sm text-gray-600 mt-4">
+          Already have an account?{' '}
+          <Link to="/login" className="text-indigo-600 hover:underline">
+            Log in
+          </Link>
+        </p>
       </form>
     </div>
   );

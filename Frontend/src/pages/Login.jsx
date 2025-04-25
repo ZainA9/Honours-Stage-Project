@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 
 export default function Login() {
@@ -69,6 +69,12 @@ export default function Login() {
         >
           Login
         </button>
+        <p className="text-center text-sm text-gray-600 mt-4">
+          Don’t have an account?{' '}
+          <Link to="/signup" className="text-indigo-600 hover:underline">
+            Sign up
+          </Link>
+        </p>
       </form>
     </div>
   );
