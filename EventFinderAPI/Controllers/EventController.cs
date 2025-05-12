@@ -26,7 +26,12 @@ namespace EventFinderAPI.Controllers
             _usersCollection = mongoDBService.GetCollection<User>(config["DatabaseSettings:UsersCollectionName"]);
         }
 
-
+        //This constructor is ONLY used for testing
+        //public EventController(IMongoCollection<Event> events, IMongoCollection<User> users)
+        //{
+        //    _eventsCollection = events;
+        //    _usersCollection = users;
+        //}
 
         //Creates event in db and only accessible to logged in users
         [Authorize]
