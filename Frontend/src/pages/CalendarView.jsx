@@ -50,17 +50,17 @@ export default function CalendarView() {
           endAccessor="end"
           style={{ height: 700 }}
 
-          // Controlled view & date:
+          //controlled view & date:
           view={currentView}
           onView={view => setCurrentView(view)}
           date={currentDate}
           onNavigate={date => setCurrentDate(date)}
 
-          // Available views & default:
+          //available views & default:
           views={['month', 'week', 'day', 'agenda']}
           defaultView="month"
 
-          // Click an event to go to its detail page
+          //click an event to go to its detail page
           onSelectEvent={evt => navigate(`/event/${evt.id}`)}
         />
       </div>

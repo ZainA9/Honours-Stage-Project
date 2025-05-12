@@ -188,7 +188,7 @@ namespace EventFinderAPI.Controllers
                 totalReservedTickets += attendee.TicketsReserved;
             }
 
-            // 🔹 Manually search for an existing RSVP
+            //manually search for an existing RSVPs
             RSVPEntry existingRSVP = null;
             foreach (var attendee in eventItem.Attendees)
             {
@@ -199,20 +199,20 @@ namespace EventFinderAPI.Controllers
                 }
             }
 
-            // 🔹 If RSVP exists, update the ticket count with proper adjustment
+            //if RSVP exists update the ticket count with proper adjustment
             if (existingRSVP != null)
             {
                 int oldTicketCount = existingRSVP.TicketsReserved;
-                int ticketDifference = tickets - oldTicketCount; // Calculate the difference
+                int ticketDifference = tickets - oldTicketCount; 
 
                 if (totalReservedTickets + ticketDifference > eventItem.Capacity)
                     return BadRequest(new { message = "Not enough seats available." });
 
-                existingRSVP.TicketsReserved = tickets; // Update ticket count correctly
+                existingRSVP.TicketsReserved = tickets; //update ticket count correctly
             }
             else
             {
-                // 🔹 Check event capacity before adding new RSVP
+                //check event capacity before adding new RSVP
                 if (totalReservedTickets + tickets > eventItem.Capacity)
                     return BadRequest(new { message = "Not enough seats available." });
 
@@ -366,7 +366,7 @@ namespace EventFinderAPI.Controllers
         {
             var userId = User.FindFirst("sub")?.Value;
 
-            // 🔹 If 'sub' is missing, try 'nameidentifier'
+            //ff sub missing try nameidentifier
             if (string.IsNullOrEmpty(userId))
             {
                 Console.WriteLine("[ERROR] No 'sub' claim found. Checking alternative claim names...");
@@ -378,14 +378,14 @@ namespace EventFinderAPI.Controllers
                 return Unauthorized("Invalid token. User not found.");
             }
 
-            // 🔹 Find the event in the database
+            //find the event in the database
             var eventItem = await _eventsCollection.Find(e => e.Id == eventId).FirstOrDefaultAsync();
             if (eventItem == null)
             {
                 return NotFound(new { message = "Event not found." });
             }
 
-            // 🔹 Ensure only the event creator can update the event
+            //ensure only the event creator can update the event
             if (eventItem.CreatedBy != userId)
             {
                 return Forbid();

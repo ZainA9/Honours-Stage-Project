@@ -145,24 +145,24 @@ namespace EventFinderAPI.Controllers
                 return Unauthorized("Invalid token. User not found.");
             }
 
-            // 🔹 Find the user in the database
+            //find the user in the database
             var user = await _usersCollection.Find(u => u.Id == userId).FirstOrDefaultAsync();
             if (user == null)
             {
                 return NotFound(new { message = "User not found." });
             }
 
-            // ✅ Send deletion confirmation email
+            //send deletion confirmation email
             string subject = "Your EventFinder Account Has Been Deleted";
             string body = $"Hi {user.FullName},\n\nThis is to confirm that your EventFinder account ({user.Email}) has been permanently deleted.\n\n" +
                           "We're sorry to see you go. If you ever want to join us again, you're always welcome back!\n\n– EventFinder Team";
 
             await emailService.SendEmailAsync(user.Email, subject, body);
 
-            // 🔹 Delete user from database
+            //delete user from database
             await _usersCollection.DeleteOneAsync(u => u.Id == userId);
 
-            // 🔹 Remove user from all RSVP lists in events
+            //remove user from all RSVP lists in events
             var filter = Builders<Event>.Filter.ElemMatch(e => e.Attendees, a => a.UserId == userId);
             var update = Builders<Event>.Update.PullFilter(e => e.Attendees, a => a.UserId == userId);
             await _eventsCollection.UpdateManyAsync(filter, update);
