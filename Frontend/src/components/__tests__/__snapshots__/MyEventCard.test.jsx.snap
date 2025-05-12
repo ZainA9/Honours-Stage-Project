@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MyEventCard renders correctly 1`] = `
+<DocumentFragment>
+  <div
+    class="bg-white rounded-xl shadow overflow-hidden"
+  >
+    <img
+      alt="Test Event"
+      class="h-52 w-full object-cover"
+      src="/images/event-fallback.jpg"
+    />
+    <div
+      class="p-4"
+    >
+      <span
+        class="inline-block text-sm bg-indigo-100 text-indigo-600 px-2 py-0.5 rounded-full mb-2"
+      >
+        Tech
+      </span>
+      <h4
+        class="font-semibold text-lg"
+      >
+        Test Event
+      </h4>
+      <p
+        class="text-sm text-gray-500 my-2"
+      >
+        📅 20/05/2024
+      </p>
+      <p
+        class="text-sm text-gray-500 mb-4"
+      >
+        📍 Test City
+      </p>
+      <div
+        class="flex gap-2"
+      >
+        <button
+          class="flex-1 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        >
+          Edit Event
+        </button>
+        <button
+          class="flex-1 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+        >
+          Delete Event
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

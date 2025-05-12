@@ -1,0 +1,155 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Navbar renders correctly when user is logged in 1`] = `
+<DocumentFragment>
+  <nav
+    class="flex items-center justify-between py-4 px-10 border-b"
+  >
+    <div
+      class="flex items-center gap-12"
+    >
+      <a
+        class="text-2xl font-bold text-indigo-600 hover:text-indigo-800"
+        data-discover="true"
+        href="/"
+      >
+        EventFinder
+      </a>
+      <div
+        class="flex gap-6 text-[16px] font-medium text-gray-600"
+      >
+        <a
+          class="hover:text-indigo-600"
+          data-discover="true"
+          href="/"
+        >
+          Home
+        </a>
+        <a
+          class="hover:text-indigo-600"
+          data-discover="true"
+          href="/explore"
+        >
+          Explore
+        </a>
+        <a
+          class="hover:text-indigo-600"
+          data-discover="true"
+          href="/calendar"
+        >
+          Calendar
+        </a>
+        <a
+          class="hover:text-indigo-600"
+          data-discover="true"
+          href="/categories"
+        >
+          Categories
+        </a>
+        <a
+          class="hover:text-indigo-600"
+          data-discover="true"
+          href="/create-event"
+        >
+          Create Event
+        </a>
+      </div>
+    </div>
+    <div
+      class="flex items-center gap-4"
+    >
+      <a
+        class="text-gray-600 hover:text-indigo-600"
+        data-discover="true"
+        href="/signup"
+      >
+        Sign Up
+      </a>
+      <a
+        class="bg-indigo-600 text-white px-4 py-1.5 rounded-md hover:bg-indigo-700"
+        data-discover="true"
+        href="/login"
+      >
+        Log In
+      </a>
+    </div>
+  </nav>
+</DocumentFragment>
+`;
+
+exports[`Navbar renders correctly when user is not logged in 1`] = `
+<DocumentFragment>
+  <nav
+    class="flex items-center justify-between py-4 px-10 border-b"
+  >
+    <div
+      class="flex items-center gap-12"
+    >
+      <a
+        class="text-2xl font-bold text-indigo-600 hover:text-indigo-800"
+        data-discover="true"
+        href="/"
+      >
+        EventFinder
+      </a>
+      <div
+        class="flex gap-6 text-[16px] font-medium text-gray-600"
+      >
+        <a
+          class="hover:text-indigo-600"
+          data-discover="true"
+          href="/"
+        >
+          Home
+        </a>
+        <a
+          class="hover:text-indigo-600"
+          data-discover="true"
+          href="/explore"
+        >
+          Explore
+        </a>
+        <a
+          class="hover:text-indigo-600"
+          data-discover="true"
+          href="/calendar"
+        >
+          Calendar
+        </a>
+        <a
+          class="hover:text-indigo-600"
+          data-discover="true"
+          href="/categories"
+        >
+          Categories
+        </a>
+        <a
+          class="hover:text-indigo-600"
+          data-discover="true"
+          href="/create-event"
+        >
+          Create Event
+        </a>
+      </div>
+    </div>
+    <div
+      class="flex items-center gap-4"
+    >
+      <a
+        class="text-gray-600 hover:text-indigo-600"
+        data-discover="true"
+        href="/signup"
+      >
+        Sign Up
+      </a>
+      <a
+        class="bg-indigo-600 text-white px-4 py-1.5 rounded-md hover:bg-indigo-700"
+        data-discover="true"
+        href="/login"
+      >
+        Log In
+      </a>
+    </div>
+  </nav>
+</DocumentFragment>
+`;
