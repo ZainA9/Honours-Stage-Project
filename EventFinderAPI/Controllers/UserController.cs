@@ -48,7 +48,7 @@ namespace EventFinderAPI.Controllers
         {
             var userId = User.FindFirst("sub")?.Value;
 
-            // 🔹 If 'sub' is missing, try 'nameidentifier'
+            //If sub is missing, try 'nameidentifier'
             if (string.IsNullOrEmpty(userId))
             {
                 Console.WriteLine("[ERROR] No 'sub' claim found. Checking alternative claim names...");
@@ -60,14 +60,14 @@ namespace EventFinderAPI.Controllers
                 return Unauthorized("Invalid token. User not found.");
             }
 
-            // 🔹 Find user in the database
+            //Find user in the database
             var user = await _usersCollection.Find(u => u.Id == userId).FirstOrDefaultAsync();
             if (user == null)
             {
                 return NotFound(new { message = "User profile not found." });
             }
 
-            // 🔹 Return user profile (excluding password)
+            //Return user profile (excluding password)
             return Ok(new
             {
                 id = user.Id,
@@ -83,7 +83,7 @@ namespace EventFinderAPI.Controllers
         {
             var userId = User.FindFirst("sub")?.Value;
 
-            // 🔹 If 'sub' is missing, try 'nameidentifier'
+            //If sub is missing, try 'nameidentifier'
             if (string.IsNullOrEmpty(userId))
             {
                 Console.WriteLine("[ERROR] No 'sub' claim found. Checking alternative claim names...");
@@ -95,18 +95,18 @@ namespace EventFinderAPI.Controllers
                 return Unauthorized("Invalid token. User not found.");
             }
 
-            // 🔹 Find the user in the database
+            //Find the user in the database
             var user = await _usersCollection.Find(u => u.Id == userId).FirstOrDefaultAsync();
             if (user == null)
             {
                 return NotFound(new { message = "User profile not found." });
             }
 
-            // 🔹 Update user details if provided (keep original values if not provided)
+            //Update user details if provided (keep original values if not provided)
             user.FullName = updatedUser.FullName ?? user.FullName;
             user.Email = updatedUser.Email ?? user.Email;
 
-            // 🔹 Hash the new password if provided
+            //Hash the new password if provided
             if (!string.IsNullOrEmpty(updatedUser.Password))
             {
                 user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(updatedUser.Password);
@@ -114,7 +114,7 @@ namespace EventFinderAPI.Controllers
 
             user.Interests = updatedUser.Interests ?? user.Interests;
 
-            // 🔹 Save updates in the database
+            //Save updates in the database
             await _usersCollection.ReplaceOneAsync(u => u.Id == userId, user);
 
             //send email after successful update
@@ -133,7 +133,7 @@ namespace EventFinderAPI.Controllers
         {
             var userId = User.FindFirst("sub")?.Value;
 
-            // 🔹 If 'sub' is missing, try 'nameidentifier'
+            //If sub is missing, try 'nameidentifier'
             if (string.IsNullOrEmpty(userId))
             {
                 Console.WriteLine("[ERROR] No 'sub' claim found. Checking alternative claim names...");

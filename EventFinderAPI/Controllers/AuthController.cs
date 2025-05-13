@@ -41,7 +41,7 @@ namespace EventFinderAPI.Controllers
             }
 
             //hash password before saving
-            user.Id = ObjectId.GenerateNewId().ToString(); // 🔹 Ensure user ID is set before inserting jus addeed
+            user.Id = ObjectId.GenerateNewId().ToString(); //ensure user ID is set before inserting jus addeed
             user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(user.PasswordHash);
 
             await _usersCollection.InsertOneAsync(user);
@@ -84,7 +84,7 @@ namespace EventFinderAPI.Controllers
 
             var claims = new[]
             {
-        new Claim(JwtRegisteredClaimNames.Sub, user.Id), // 🔹 Ensure this correctly stores user ID
+        new Claim(JwtRegisteredClaimNames.Sub, user.Id), 
         new Claim(JwtRegisteredClaimNames.Email, user.Email),
         new Claim("FullName", user.FullName)
     };
@@ -132,7 +132,7 @@ namespace EventFinderAPI.Controllers
 
             var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
 
-            // Now try to validate the token immediately
+            
             var tokenHandler = new JwtSecurityTokenHandler();
             var validationParameters = new TokenValidationParameters
             {

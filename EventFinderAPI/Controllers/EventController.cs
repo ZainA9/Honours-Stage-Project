@@ -60,13 +60,13 @@ namespace EventFinderAPI.Controllers
             Console.WriteLine($"[DEBUG] Extracted User ID: {userId}");
             eventData.CreatedBy = userId;
 
-            // ✅ Default max tickets
+            //Default max tickets
             if (eventData.MaxTicketsPerUser <= 0)
             {
                 eventData.MaxTicketsPerUser = 10;
             }
 
-            // ✅ Geocode the location to get coordinates
+            //Geocode the location to get coordinates
             var coords = await GeocodeLocationAsync(eventData.Location);
             if (coords != null)
             {
@@ -80,10 +80,10 @@ namespace EventFinderAPI.Controllers
                 Console.WriteLine("[WARNING] Geocoding failed. Coordinates not saved.");
             }
 
-            // ✅ Save event
+            //Save event
             await _eventsCollection.InsertOneAsync(eventData);
 
-            // ✅ Email the event creator
+            //Email the event creator
             var user = await _usersCollection.Find(u => u.Id == userId).FirstOrDefaultAsync();
             if (user != null)
             {
@@ -109,7 +109,7 @@ namespace EventFinderAPI.Controllers
             return Ok(events);
         }
 
-        //gets event by ID /api/events/{id})
+        //gets event by ID /api/events/id)
         [HttpGet("{id}")]
         public async Task<IActionResult> GetEventById(string id)
         {
@@ -158,7 +158,7 @@ namespace EventFinderAPI.Controllers
 
             var userId = User.FindFirst("sub")?.Value;
 
-            // 🔹 If 'sub' is missing, try 'nameidentifier'
+            //If sub is missing, try 'nameidentifier'
             if (string.IsNullOrEmpty(userId))
             {
                 Console.WriteLine("[ERROR] No 'sub' claim found. Checking alternative claim names...");
@@ -186,7 +186,7 @@ namespace EventFinderAPI.Controllers
             if (tickets > eventItem.MaxTicketsPerUser)
                 return BadRequest(new { message = $"You can only reserve up to {eventItem.MaxTicketsPerUser} tickets." });
 
-            // 🔹 Calculate total reserved tickets manually
+            //Calculate total reserved tickets manually
             int totalReservedTickets = 0;
             foreach (var attendee in eventItem.Attendees)
             {
@@ -231,7 +231,7 @@ namespace EventFinderAPI.Controllers
 
             await _eventsCollection.ReplaceOneAsync(e => e.Id == eventId, eventItem);
 
-            // 🔹 Get the user so we can email them
+            //Get the user so we can email them
             var user = await _usersCollection.Find(u => u.Id == userId).FirstOrDefaultAsync();
             if (user != null)
             {
@@ -265,7 +265,7 @@ namespace EventFinderAPI.Controllers
         {
             var userId = User.FindFirst("sub")?.Value;
 
-            // 🔹 If 'sub' is missing, try 'nameidentifier'
+            //If sub is missing, try 'nameidentifier'
             if (string.IsNullOrEmpty(userId))
             {
                 Console.WriteLine("[ERROR] No 'sub' claim found. Checking alternative claim names...");
@@ -284,18 +284,18 @@ namespace EventFinderAPI.Controllers
             if (eventItem == null)
                 return NotFound(new { message = "Event not found." });
 
-            // 🔹 Check if the user has RSVP'd
+            //Check if the user has RSVP'd
             var existingRSVP = eventItem.Attendees.FirstOrDefault(a => a.UserId == userId);
             if (existingRSVP == null)
                 return BadRequest(new { message = "You have not RSVP'd for this event." });
 
-            // 🔹 Remove the RSVP entry from the list
+            //Remove the RSVP entry from the list
             eventItem.Attendees.Remove(existingRSVP);
 
-            // 🔹 Update the event in the database
+            //Update the event in the database
             await _eventsCollection.ReplaceOneAsync(e => e.Id == eventId, eventItem);
 
-            // ✅ Get user from DB
+            //Get user from DB
             var user = await _usersCollection.Find(u => u.Id == userId).FirstOrDefaultAsync();
             if (user != null)
             {
@@ -314,7 +314,7 @@ namespace EventFinderAPI.Controllers
         {
             var userId = User.FindFirst("sub")?.Value;
 
-            // 🔹 If 'sub' is missing, try 'nameidentifier'
+            //If sub is missing, try 'nameidentifier'
             if (string.IsNullOrEmpty(userId))
             {
                 Console.WriteLine("[ERROR] No 'sub' claim found. Checking alternative claim names...");
@@ -333,7 +333,7 @@ namespace EventFinderAPI.Controllers
             if (eventItem == null)
                 return NotFound(new { message = "Event not found." });
 
-            // 🔹 Only allow event creator to view the attendees
+            //Only allow event creator to view the attendees
             if (eventItem.CreatedBy != userId)
                 return StatusCode(403, new { message = "Only the event creator can view attendees." });
 
@@ -347,7 +347,7 @@ namespace EventFinderAPI.Controllers
         {
             var userId = User.FindFirst("sub")?.Value;
 
-            // 🔹 If 'sub' is missing, try 'nameidentifier'
+            //If sub is missing, try 'nameidentifier'
             if (string.IsNullOrEmpty(userId))
             {
                 Console.WriteLine("[ERROR] No 'sub' claim found. Checking alternative claim names...");
@@ -371,7 +371,7 @@ namespace EventFinderAPI.Controllers
         {
             var userId = User.FindFirst("sub")?.Value;
 
-            //ff sub missing try nameidentifier
+            //if sub missing try nameidentifier
             if (string.IsNullOrEmpty(userId))
             {
                 Console.WriteLine("[ERROR] No 'sub' claim found. Checking alternative claim names...");
@@ -396,7 +396,7 @@ namespace EventFinderAPI.Controllers
                 return Forbid();
             }
 
-            // 🔹 Apply updates (keep the same event ID)
+            
             eventItem.Name = updatedEvent.Name ?? eventItem.Name;
             eventItem.Description = updatedEvent.Description ?? eventItem.Description;
             eventItem.Location = updatedEvent.Location ?? eventItem.Location;
@@ -431,7 +431,7 @@ namespace EventFinderAPI.Controllers
         {
             var userId = User.FindFirst("sub")?.Value;
 
-            // 🔹 If 'sub' is missing, try 'nameidentifier'
+            //If sub is missing, try 'nameidentifier'
             if (string.IsNullOrEmpty(userId))
             {
                 Console.WriteLine("[ERROR] No 'sub' claim found. Checking alternative claim names...");
@@ -443,14 +443,14 @@ namespace EventFinderAPI.Controllers
                 return Unauthorized("Invalid token. User not found.");
             }
 
-            // 🔹 Find the event in the database
+            //Find the event in the database
             var eventItem = await _eventsCollection.Find(e => e.Id == eventId).FirstOrDefaultAsync();
             if (eventItem == null)
             {
                 return NotFound(new { message = "Event not found." });
             }
 
-            // 🔹 Ensure only the event creator can delete the event
+            //Ensure only the event creator can delete the event
             if (eventItem.CreatedBy != userId)
             {
                 return Forbid();
@@ -494,7 +494,7 @@ namespace EventFinderAPI.Controllers
                 return Unauthorized("Invalid token. User not found.");
             }
 
-            // 🔍 Find all events where this user has RSVP’d
+            //Find all events where this user has RSVP’d
             var filter = Builders<Event>.Filter.ElemMatch(e => e.Attendees, a => a.UserId == userId);
             var rsvpEvents = await _eventsCollection.Find(filter).ToListAsync();
 

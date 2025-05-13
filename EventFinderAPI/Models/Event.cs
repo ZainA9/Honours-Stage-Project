@@ -11,30 +11,30 @@
         public string? Id { get; set; } // MongoDB ID (automatically generated)
 
         [Required]
-        public string Name { get; set; } // Event name
+        public string Name { get; set; } 
 
         [Required]
-        public string Description { get; set; } // Event description
+        public string Description { get; set; } 
 
         [Required]
-        public string Location { get; set; } // Event location
+        public string Location { get; set; } 
 
         public double? Latitude { get; set; }
         public double? Longitude { get; set; }
 
 
         [Required]
-        public DateTime Date { get; set; } // Event date & time
+        public DateTime Date { get; set; } 
 
         [Required]
         public string[] Categories { get; set; }
-        public int Capacity { get; set; } // Max number of attendees
+        public int Capacity { get; set; } 
 
-        public decimal Price { get; set; } // Ticket price (0 if free)
+        public decimal Price { get; set; } 
 
-        public bool IsPublic { get; set; } // Public or private event
+        public bool IsPublic { get; set; } 
 
-        public int? MaxTicketsPerUser { get; set; } // Limit per user
+        public int? MaxTicketsPerUser { get; set; } 
 
         public List<RSVPEntry> Attendees { get; set; } = new List<RSVPEntry>(); // Stores RSVPs
 

@@ -60,3 +60,4 @@ C:\Users\zain2\source\repos\Honours-Stage-Project\EventFinderAPI\obj\Debug\net8.
 C:\Users\zain2\source\repos\Honours-Stage-Project\EventFinderAPI\obj\Debug\net8.0\EventFinderAPI.pdb
 C:\Users\zain2\source\repos\Honours-Stage-Project\EventFinderAPI\obj\Debug\net8.0\EventFinderAPI.genruntimeconfig.cache
 C:\Users\zain2\source\repos\Honours-Stage-Project\EventFinderAPI\obj\Debug\net8.0\ref\EventFinderAPI.dll
+C:\Users\zain2\source\repos\Honours-Stage-Project\EventFinderAPI\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

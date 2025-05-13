@@ -6,5 +6,5 @@ public class RSVPEntry
     [BsonRepresentation(BsonType.ObjectId)]
     public string UserId { get; set; }
 
-    public int TicketsReserved { get; set; } // Number of tickets reserved by the user
+    public int TicketsReserved { get; set; } 
 }

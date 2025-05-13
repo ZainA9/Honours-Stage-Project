@@ -6,7 +6,7 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 🔹 CORS: Allow React frontend access
+//CORS: Allow React frontend access
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend",
@@ -92,7 +92,7 @@ builder.Services.AddSingleton<SmtpEmailService>();
 
 var app = builder.Build();
 
-// 🔹 Enable CORS
+//Enable CORS
 app.UseCors("AllowFrontend");
 
 // Swagger and middleware
