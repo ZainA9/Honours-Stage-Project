@@ -14,3 +14,5 @@ Frontend/.env
 .vs/EventFinderAPI/FileContentIndex/d585dbfa-4917-4f1e-a0ba-49edfed48919.vsidx
 .vs/EventFinderAPI/FileContentIndex/dcfef5ad-1c28-4c38-a1f2-76acacb8c39d.vsidx
 .vs/EventFinderAPI/FileContentIndex/af30e05f-670e-43c7-8b3b-ac3ae180037a.vsidx
+/EventFinderAPI/appsettings.json
+/EventFinderAPI/appsettings.Development.json
