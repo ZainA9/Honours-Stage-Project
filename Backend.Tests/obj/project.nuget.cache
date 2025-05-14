@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "6vaooTOguBU=",
+  "dgSpecHash": "9ppf+3cPfes=",
   "success": true,
-  "projectFilePath": "C:\\Users\\zain2\\source\\repos\\Honours-Stage-Project\\Backend.Tests\\Backend.Tests.csproj",
+  "projectFilePath": "C:\\Users\\zain2\\source\\repos\\Honours-Stage-Project-Clean\\Backend.Tests\\Backend.Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\zain2\\.nuget\\packages\\awssdk.core\\3.7.100.14\\awssdk.core.3.7.100.14.nupkg.sha512",
     "C:\\Users\\zain2\\.nuget\\packages\\awssdk.securitytoken\\3.7.100.14\\awssdk.securitytoken.3.7.100.14.nupkg.sha512",
