@@ -1,0 +1,83 @@
+[{
+  "_id": {
+    "$oid": "67ca45bd445b96f984fb107b"
+  },
+  "FullName": "Zain Asghar",
+  "Email": "zain123@example.com",
+  "PasswordHash": "hashed_password",
+  "Interests": [
+    "Music",
+    "Sports"
+  ]
+},
+{
+  "_id": {
+    "$oid": "67d37055f63949cdb7e323aa"
+  },
+  "FullName": "Alice Johnson",
+  "Email": "newalice@example.com",
+  "PasswordHash": "$2a$11$Toc.7vaXl3l/LKtSoJWO6.8nGtNnsgyw3rB7cDpnJsprjHd5qjjjW",
+  "Interests": [
+    "Technology",
+    "AI"
+  ]
+},
+{
+  "_id": {
+    "$oid": "67e343b2f66e7cffdb16952b"
+  },
+  "FullName": "Zain Asghar",
+  "Email": "zain2103a@gmail.com",
+  "PasswordHash": "$2a$11$rWpVQbCv5UcU4CaaHS4.HOWjXH.h67SWlU/EqDrNcYF4LgxJe5k6u",
+  "Interests": [
+    "Tech",
+    "Music"
+  ]
+},
+{
+  "_id": {
+    "$oid": "67f6f8994b38fe2680942d86"
+  },
+  "FullName": "John Doe",
+  "Email": "johndoe@example.com",
+  "PasswordHash": "$2a$11$SBdb3CFk1dt4yGDZ1Pa1OunR6P/rJoxTWykQzspg.xioe/cjyQbC2",
+  "Interests": [
+    "Music",
+    "Art"
+  ]
+},
+{
+  "_id": {
+    "$oid": "67f708d2a112fbfba9861967"
+  },
+  "FullName": "Alice Johnson",
+  "Email": "alice@example.com",
+  "PasswordHash": "$2a$11$3gJjT/V0m1qJhoOgUz8xpOfJtGoUN0bxpAJ./5tJSuJCpnRt2VR66",
+  "Interests": null
+},
+{
+  "_id": {
+    "$oid": "67f70a962267855c94d8fee1"
+  },
+  "FullName": "Sarah Thompson",
+  "Email": "sarah.t@example.com",
+  "PasswordHash": "$2a$11$G7tjbztqcDSWF57kidrZU.7wrxpm8zuYxgolb4qaDVLF56IuH/biC",
+  "Interests": [
+    "Music",
+    "Art",
+    "Food",
+    "Tech"
+  ]
+},
+{
+  "_id": {
+    "$oid": "6823879b135924e3497c3cd1"
+  },
+  "FullName": "adam",
+  "Email": "ardadams18@gmail.com",
+  "PasswordHash": "$2a$11$YisjQN6l8fp5Fbtv5Ds6r.TcCs1aQqQ6Dl1zZqsrD8S5oHZzcarqu",
+  "Interests": [
+    "Music",
+    "Education"
+  ]
+}]

@@ -1,0 +1,24 @@
+﻿{
+  "ConnectionStrings": {
+    "MongoDB": "mongodb://localhost:27017"
+  },
+  "DatabaseSettings": {
+    "DatabaseName": "EventFinderDB",
+    "UsersCollectionName": "Users",
+    "EventsCollectionName": "Events"
+  },
+  "JwtSettings": {
+    "Secret": "YourJwtSecretHere",
+    "Issuer": "EventFinderAPI",
+    "Audience": "EventFinderUsers",
+    "ExpiryMinutes": 60
+  },
+  "MailjetSMTP": {
+    "Host": "in-v3.mailjet.com",
+    "Port": 587,
+    "Username": "your_mailjet_username",
+    "Password": "your_mailjet_password",
+    "FromEmail": "example@example.com",
+    "FromName": "EventFinder"
+  }
+}

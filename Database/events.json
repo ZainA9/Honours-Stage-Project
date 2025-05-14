@@ -1,0 +1,226 @@
+[{
+  "_id": {
+    "$oid": "67d232d1d813cbc3545ddcf0"
+  },
+  "Name": "Tech Conference",
+  "Description": "A gathering of top tech professionals.",
+  "Location": "New York City",
+  "Latitude": null,
+  "Longitude": null,
+  "Date": {
+    "$date": "2025-05-20T10:00:00.000Z"
+  },
+  "Categories": [
+    "Technology",
+    "Networking"
+  ],
+  "Capacity": 500,
+  "Price": "50.00",
+  "IsPublic": true,
+  "MaxTicketsPerUser": null,
+  "Attendees": [
+    {
+      "UserId": {
+        "$oid": "67e343b2f66e7cffdb16952b"
+      },
+      "TicketsReserved": 1
+    },
+    {
+      "UserId": {
+        "$oid": "6823879b135924e3497c3cd1"
+      },
+      "TicketsReserved": 1
+    }
+  ],
+  "CreatedBy": {
+    "$oid": "65123456789abcdef1234567"
+  }
+},
+{
+  "_id": {
+    "$oid": "67d25264b6418177d345da5b"
+  },
+  "Name": "Tech Meetup",
+  "Description": "A networking event for tech enthusiasts.",
+  "Location": "San Francisco",
+  "Latitude": null,
+  "Longitude": null,
+  "Date": {
+    "$date": "2025-06-10T18:00:00.000Z"
+  },
+  "Categories": [
+    "Technology",
+    "Networking"
+  ],
+  "Capacity": 100,
+  "Price": "0",
+  "IsPublic": true,
+  "MaxTicketsPerUser": null,
+  "Attendees": [
+    {
+      "UserId": {
+        "$oid": "67f6f8994b38fe2680942d86"
+      },
+      "TicketsReserved": 1
+    },
+    {
+      "UserId": {
+        "$oid": "67f70a962267855c94d8fee1"
+      },
+      "TicketsReserved": 1
+    }
+  ],
+  "CreatedBy": {
+    "$oid": "67d2347b5e40f801ac075632"
+  }
+},
+{
+  "_id": {
+    "$oid": "67f865a09b7e7bbda539681e"
+  },
+  "Name": "Summer beats festival (One Day)",
+  "Description": "Day 2: A vibrant open-air music festival featuring live bands, food trucks, and late-night DJs.\n",
+  "Location": "Wilmslow Road, Fallowfield, Manchester M14 6LA",
+  "Latitude": null,
+  "Longitude": null,
+  "Date": {
+    "$date": "2025-08-11T23:00:00.000Z"
+  },
+  "Categories": [
+    "Music",
+    "Food"
+  ],
+  "Capacity": 500,
+  "Price": "0",
+  "IsPublic": true,
+  "MaxTicketsPerUser": 5,
+  "Attendees": [
+    {
+      "UserId": {
+        "$oid": "6823879b135924e3497c3cd1"
+      },
+      "TicketsReserved": 2
+    }
+  ],
+  "CreatedBy": {
+    "$oid": "67f70a962267855c94d8fee1"
+  }
+},
+{
+  "_id": {
+    "$oid": "68006b7ea3080d978500be2d"
+  },
+  "Name": "Outdoor Jazz Night",
+  "Description": "An evening of smooth jazz under the stars.",
+  "Location": "Hyde Park, London",
+  "Latitude": 42.98781,
+  "Longitude": -81.3266,
+  "Date": {
+    "$date": "2025-05-24T23:00:00.000Z"
+  },
+  "Categories": [
+    "Music",
+    "Arts"
+  ],
+  "Capacity": 150,
+  "Price": "0",
+  "IsPublic": true,
+  "MaxTicketsPerUser": 4,
+  "Attendees": [],
+  "CreatedBy": {
+    "$oid": "67f6f8994b38fe2680942d86"
+  }
+},
+{
+  "_id": {
+    "$oid": "6805aba0494a66b0afe46611"
+  },
+  "Name": "Summer beats festival ",
+  "Description": "Test",
+  "Location": "M14 6LA, Platt Field Park, Manchester",
+  "Latitude": 53.446461,
+  "Longitude": -2.224418,
+  "Date": {
+    "$date": "2025-05-24T23:00:00.000Z"
+  },
+  "Categories": [
+    "Music"
+  ],
+  "Capacity": 1000,
+  "Price": "0",
+  "IsPublic": true,
+  "MaxTicketsPerUser": 5,
+  "Attendees": [
+    {
+      "UserId": {
+        "$oid": "6823879b135924e3497c3cd1"
+      },
+      "TicketsReserved": 5
+    }
+  ],
+  "CreatedBy": {
+    "$oid": "67f70a962267855c94d8fee1"
+  }
+},
+{
+  "_id": {
+    "$oid": "68238950135924e3497c3cd2"
+  },
+  "Name": "Outdoor Jazz Night",
+  "Description": "day of jazz",
+  "Location": "HU6 7EL, westfield Court, University of Hull, Cottingham road",
+  "Latitude": 53.771504,
+  "Longitude": -0.372722,
+  "Date": {
+    "$date": "2025-05-26T23:00:00.000Z"
+  },
+  "Categories": [
+    "Music"
+  ],
+  "Capacity": 400,
+  "Price": "0",
+  "IsPublic": true,
+  "MaxTicketsPerUser": 5,
+  "Attendees": [
+    {
+      "UserId": {
+        "$oid": "67f70a962267855c94d8fee1"
+      },
+      "TicketsReserved": 1
+    }
+  ],
+  "CreatedBy": {
+    "$oid": "6823879b135924e3497c3cd1"
+  }
+},
+{
+  "_id": {
+    "$oid": "68239079135924e3497c3cd3"
+  },
+  "Name": "programming ",
+  "Description": "full day of programming",
+  "Location": "University of Hull, Cottingham road, HU67RX",
+  "Latitude": 53.771778,
+  "Longitude": -0.366384,
+  "Date": {
+    "$date": "2025-05-27T23:00:00.000Z"
+  },
+  "Categories": [
+    "Technology"
+  ],
+  "Capacity": 400,
+  "Price": "0",
+  "IsPublic": true,
+  "MaxTicketsPerUser": 10,
+  "Attendees": [
+    {
+      "UserId": {
+        "$oid": "67f70a962267855c94d8fee1"
+      },
+      "TicketsReserved": 1
+    }
+  ],
+  "CreatedBy": {
+    "$oid": "6823879b135924e3497c3cd1"
+  }
+}]

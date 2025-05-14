@@ -1,0 +1,15 @@
+﻿# Ignore secrets
+appsettings.json
+appsettings.Development.json
+
+# Build and debug folders
+bin/
+obj/
+
+# User-specific files
+.vs/
+*.user
+*.suo
+
+# Logs
+*.log
